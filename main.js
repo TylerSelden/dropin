@@ -1,8 +1,19 @@
+// default settings
 var useHTTPS = true;
 var backupInterval = 5; // minutes
 var restore = false; // restore messages from backup.json
 var maxMessages = 500; // max messages to store per room
 var roomDeleteInterval = 7; // days
+
+// check command line arguments
+process.argv.forEach(function (val, index, array) {
+  if (index < 2) return;
+  try {
+    eval(val);
+  } catch {
+    console.log("Invalid command line argument: " + val);
+  }
+});
 
 // modules
 var https = require('https');
