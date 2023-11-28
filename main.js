@@ -1,4 +1,5 @@
 var useHTTPS = false;
+var backupInterval = 5; // minutes
 
 // modules
 var https = require('https');
@@ -103,3 +104,26 @@ function initConnect(data, connection) {
     return connection.close();
   }
 }
+
+// Every 5 minutes, back up all messages to backup.json
+setInterval(function() {
+  fs.writeFile("./backup.json", JSON.stringify(messages), function(err) {
+    if (err) console.log(err);
+  });
+}, backupInterval * 60 * 1000);
+
+// Every 5 minutes, delete all messages older than deleteInterval days
+var deleteInterval = 7;
+setInterval(function() {
+  var now = new Date();
+  for (var i in messages) {
+    var room = messages[i];
+    for (var j in room) {
+      var message = room[j];
+      var date = new Date(message.date);
+      if (now - date > deleteInterval * 24 * 60 * 60 * 1000) {
+        room.splice(j, 1);
+      }
+    }
+  }
+}, backupInterval * 60 * 1000);
