@@ -15,6 +15,7 @@ httpServ.listen(port);
 var server = new websocketModule({httpServer: httpServ});
 
 var clients = {};
+var messages = {};
 
 function Client(username, roomcode, connection) {
   var client = {
@@ -50,6 +51,8 @@ server.on('request', function(request) {
     if (data.type == "message") return sendMessage(data.msg, connection);
   });
   connection.on('close', function() {
+    // send left chat message
+    sendMessage(`left the chat.`, connection);
     delete clients[connection.username];
   });
 });
@@ -67,6 +70,8 @@ function sendMessage(msg, connection) {
         client.connection.send(JSON.stringify({type: "message", username: from, message: `<p>${from}: ${msg}</p>`}));
       }
     };
+    if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
+    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`});
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
   }
@@ -87,6 +92,11 @@ function initConnect(data, connection) {
     connection.username = data.username;
     sendMessage(`joined the chat.`, connection);
 
+    if (messages[data.roomcode] == undefined) messages[data.roomcode] = [];
+    for (var i in messages[data.roomcode]) {
+      var message = messages[data.roomcode][i];
+      connection.send(JSON.stringify({type: "message", username: message.username, message: message.message}));
+    }
     //// send client prev messages!!
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid init data."}));
