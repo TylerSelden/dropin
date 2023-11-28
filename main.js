@@ -2,6 +2,7 @@ var useHTTPS = true;
 var backupInterval = 5; // minutes
 var restore = false; // restore messages from backup.json
 var maxMessages = 500; // max messages to store per room
+var roomDeleteInterval = 7; // days
 
 // modules
 var https = require('https');
@@ -19,6 +20,7 @@ var server = new websocketModule({httpServer: httpServ});
 
 var clients = {};
 var messages = {};
+var lastRoomTimes = {};
 
 if (restore) {
   fs.readFile("./backup.json", function(err, data) {
@@ -61,8 +63,7 @@ server.on('request', function(request) {
     if (data.type == "message") return sendMessage(data.msg, connection);
   });
   connection.on('close', function() {
-    // send left chat message
-    sendMessage(`left the chat.`, connection);
+    // sendMessage(`left the chat.`, connection);
     delete clients[connection.username];
   });
 });
@@ -82,6 +83,7 @@ function sendMessage(msg, connection) {
     };
     if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
     messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
+    lastRoomTimes = Date.now();
 
     // remove old messages
     if (messages[clients[from].roomcode].length >= maxMessages) {
@@ -105,7 +107,7 @@ function initConnect(data, connection) {
       return connection.close();
     }
     connection.username = data.username;
-    sendMessage(`joined the chat.`, connection);
+    // sendMessage(`joined the chat.`, connection);
 
     if (messages[data.roomcode] == undefined) messages[data.roomcode] = [];
     for (var i in messages[data.roomcode]) {
@@ -120,7 +122,18 @@ function initConnect(data, connection) {
 
 // Every 5 minutes, back up all messages to backup.json
 setInterval(function() {
+  // back up messages
   fs.writeFile("./backup.json", JSON.stringify(messages), function(err) {
     if (err) console.log(err);
   });
+
+  // delete old rooms
+  var now = Date.now();
+  for (var i in lastRoomTimes) {
+    var lastRoomTime = lastRoomTimes[i];
+    if (now - lastRoomTime > roomDeleteInterval * 24 * 60 * 60 * 1000) {
+      delete messages[i];
+      delete lastRoomTimes[i];
+    }
+  }
 }, backupInterval * 60 * 1000);
