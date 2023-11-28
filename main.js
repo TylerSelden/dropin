@@ -10,7 +10,7 @@ var websocketModule = require('websocket').server;
 // initialization
 if (useHTTPS) var options = { key: fs.readFileSync('./ssl/key.pem'), cert: fs.readFileSync('./ssl/cert.pem') };
 
-var port = 8080;
+var port = (useHTTPS) ? 8443 : 8080;
 var httpServ = (useHTTPS) ? https.createServer(options) : http.createServer(options);
 httpServ.listen(port);
 var server = new websocketModule({httpServer: httpServ});
