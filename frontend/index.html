@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DropIn Chat</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode, body.dark-mode #chat-container {
+      background-color: #333;
+      color: #fff;
+    }
+
+    body.dark-mode h1 {
+      color: #fff;
+    }
+    body.dark-mode td {
+      color: #000;
+    }
+    body.dark-mode header, body.dark-mode button, body.dark-mode th {
+      background-color: #2779af;
+    }
+
+    header {
+      z-index: 10;
+      text-align: left;
+      margin-bottom: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #3498db;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 {
+      font-size: 2em;
+      margin: 0;
+      color: #fff;
+    }
+    
+    header button {
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      margin: 10px;
+      padding: 0px 10px;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    main {
+      text-align: center;
+    }
+
+    #room-info {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    #room-code,
+    #username {
+      padding: 8px;
+      margin: 0 5px;
+      font-size: 1em;
+    }
+
+    #join-button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 1.2em;
+      transition: background-color 0.3s ease;
+    }
+
+    #join-button:hover {
+      background-color: #2779af;
+    }
+
+    #dark-mode-toggle {
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1em;
+    }
+
+    .dark-mode #dark-mode-toggle {
+      color: #fff;
+    }
+
+    #chat-container {
+      display: none;
+      position: fixed;
+      top: 60px; /* Adjusted from 0 to allow space for the header */
+      left: 0;
+      width: 100%;
+      height: calc(100% - 60px); /* Adjusted to consider the space for the header */
+      background-color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    #chat-container.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    #chat-content {
+      height: calc(100vh - 15vh); /* Adjusted to consider space for the input area at the bottom */
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    #message-input {
+      width: calc(100% - 240px);
+      padding: 8px;
+      margin-right: 10px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+
+    #send-button,
+    #back-button {
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      transition: background-color 0.3s ease;
+    }
+
+    #send-button {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    #send-button:hover {
+      background-color: #2779af;
+    }
+
+    #back-button {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    #back-button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DropIn Chat</h1>
+    <button id="dark-mode-toggle">Dark Mode</button>
+  </header>
+
+  <main>
+    <div id="room-info">
+      <label>Room Code:</label>
+      <input type="text" id="room-code" placeholder="Enter room code">
+      <label>Username:</label>
+      <input type="text" id="username" placeholder="Enter username">
+      <button id="join-button" onclick="showChat()">Join Room</button>
+    </div>
+
+    <div id="chat-container">
+      <div id="chat-content">
+        <!-- Your chat content goes here -->
+        <p>Welcome to the chat!</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+        <p>Welcome to the chat!2</p>
+      </div>
+      <div style="display: flex; align-items: center; position: absolute; bottom: 0; left: 0; width: 100vw;">
+        <textarea id="message-input" placeholder="Type your message..."></textarea>
+        <button id="send-button" onclick="sendMessage()">Send</button>
+        <button id="back-button" onclick="window.location.reload()">Back to Menu</button>
+      </div>
+    </div>
+  </main> 
+
+  <!-- WebSocket functionality -->
+  <script src="script.js"></script>
+  <script>
+    // UI Functionality
+
+    function showChat() {
+      var roomInfoDiv = document.getElementById('room-info');
+      var chatContainerDiv = document.getElementById('chat-container');
+
+      var roomCode = document.getElementById('room-code').value;
+      var username = document.getElementById('username').value;
+
+      roomInfoDiv.style.display = 'none';
+      chatContainerDiv.style.display = 'block';
+    }
+
+    function joinRoom() {
+      var roomCode = document.getElementById('room-code').value;
+      var username = document.getElementById('username').value;
+
+      console.log("Room Code: " + roomCode);
+      console.log("Username: " + username);
+    }
+
+    function menuOnEnter(event) {
+      if (event.keyCode == 13) document.getElementById("join-button").click();
+    }
+    function msgOnEnter(event) {
+      if (event.keyCode == 13 && !event.shiftKey) document.getElementById("send-button").click();
+    }
+
+    window.onload = () => {
+      document.getElementById("room-code").addEventListener("keydown", menuOnEnter);
+      document.getElementById("username").addEventListener("keydown", menuOnEnter);
+      document.getElementById("message-input").addEventListener("keydown", msgOnEnter);
+
+      // yes I stole this from stack overflow
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.setItem('darkMode', 'true');
+      }
+    }
+
+    var isDarkMode = localStorage.getItem('darkMode') == 'true';
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+    }
+
+    var darkModeToggle = document.getElementById('dark-mode-toggle');
+    var body = document.body;
+
+    darkModeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+    });
+  </script>
+
+</body>
+</html>

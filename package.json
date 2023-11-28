@@ -1,0 +1,17 @@
+{
+  "name": "dropin",
+  "version": "1.0.0",
+  "description": "A simple, lightweight chat application",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "author": "Tyler Selden",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "websocket": "^1.0.34"
+  }
+}
