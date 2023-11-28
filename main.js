@@ -94,7 +94,7 @@ function sendMessage(msg, connection) {
     };
     if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
     messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
-    lastRoomTimes = Date.now();
+    lastRoomTimes[clients[from].roomcode] = Date.now();
 
     // remove old messages
     if (messages[clients[from].roomcode].length >= maxMessages) {
@@ -118,9 +118,11 @@ function initConnect(data, connection) {
       return connection.close();
     }
     connection.username = data.username;
+    connection.send(JSON.stringify({type: "message", message: `Joined room: "${data.roomcode}"`}));
     // sendMessage(`joined the chat.`, connection);
 
     if (messages[data.roomcode] == undefined) messages[data.roomcode] = [];
+    lastRoomTimes[clients[from].roomcode] = Date.now();
     for (var i in messages[data.roomcode]) {
       var message = messages[data.roomcode][i];
       connection.send(JSON.stringify({type: "message", username: message.username, message: message.message}));
