@@ -1,7 +1,7 @@
 var useHTTPS = true;
 var backupInterval = 5; // minutes
-var restore = true; // restore messages from backup.json
-var maxMessages = 5; // max messages to store per room
+var restore = false; // restore messages from backup.json
+var maxMessages = 500; // max messages to store per room
 
 // modules
 var https = require('https');
@@ -84,7 +84,7 @@ function sendMessage(msg, connection) {
     messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
 
     // remove old messages
-    if (messages[clients[from].roomcode].length > maxMessages) {
+    if (messages[clients[from].roomcode].length >= maxMessages) {
       messages[clients[from].roomcode].splice(0, messages[clients[from].roomcode].length - maxMessages);
     }
   } catch {
