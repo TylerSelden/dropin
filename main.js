@@ -72,7 +72,7 @@ function sendMessage(msg, connection) {
       }
     };
     if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
-    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`});
+    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
   }
