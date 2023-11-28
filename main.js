@@ -4,7 +4,6 @@ var useHTTPS = false;
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
-const { client } = require('websocket');
 var websocketModule = require('websocket').server;
 
 // initialization
@@ -39,30 +38,16 @@ server.on('request', function(request) {
   connection.username = false;
   connection.on('message', function(msg) {
     var msg = msg.utf8Data;
-    try { var data = JSON.parse(msg) } catch { return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."})) }
-    
+    try { var data = JSON.parse(msg); } catch { return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."})) }
+    if (data.type == undefined) return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."}));
+
     // initial connection
     if (!connection.username) {
-      try {
-        //// sanitize data
-        var clientMade = Client(data.username, data.roomcode, connection);
-        if (!clientMade) {
-          connection.send(JSON.stringify({type: "error", message: "Username already taken."}));
-          return connection.close();
-        }
-        connection.username = data.username;
-
-        //// something here
-      } catch {
-        connection.send(JSON.stringify({type: "error", message: "Invalid init data."}));
-        return connection.close();
-      }
+      return initConnect(data, connection);
     }
 
-    //// real message handling
-    console.log("Message from " + connection.username + ": " + msg);
-    console.log(msg);
-    connection.send("OK");
+    // real message handling
+    if (data.type == "message") return sendMessage(data.msg, connection);
   });
   connection.on('close', function() {
     delete clients[connection.username];
@@ -70,3 +55,41 @@ server.on('request', function(request) {
 });
 
 console.log("Server started on port " + port + ".");
+
+
+function sendMessage(msg, connection) {
+  try {
+    var from = connection.username;
+    // send to clients with same room code
+    for (var i in clients) {
+      var client = clients[i];
+      if (client.roomcode == clients[from].roomcode) {
+        client.connection.send(JSON.stringify({type: "message", username: from, message: `<p>${from}: ${msg}</p>`}));
+      }
+    };
+  } catch {
+    connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
+  }
+}
+
+
+function initConnect(data, connection) {
+  try {
+    if (data.username == "" || data.roomcode == "") {
+      connection.send(JSON.stringify({type: "error", message: "Field cannot be empty."}));
+      connection.close();
+    }
+    var clientMade = Client(data.username, data.roomcode, connection);
+    if (!clientMade) {
+      connection.send(JSON.stringify({type: "error", message: "Username already taken."}));
+      return connection.close();
+    }
+    connection.username = data.username;
+    sendMessage(`joined the chat.`, connection);
+
+    //// send client prev messages!!
+  } catch {
+    connection.send(JSON.stringify({type: "error", message: "Invalid init data."}));
+    return connection.close();
+  }
+}

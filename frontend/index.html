@@ -187,48 +187,7 @@
     </div>
 
     <div id="chat-container">
-      <div id="chat-content">
-        <!-- Your chat content goes here -->
-        <p>Welcome to the chat!</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-        <p>Welcome to the chat!2</p>
-      </div>
+      <div id="chat-content"></div>
       <div style="display: flex; align-items: center; position: absolute; bottom: 0; left: 0; width: 100vw;">
         <textarea id="message-input" placeholder="Type your message..."></textarea>
         <button id="send-button" onclick="sendMessage()">Send</button>
@@ -251,14 +210,10 @@
 
       roomInfoDiv.style.display = 'none';
       chatContainerDiv.style.display = 'block';
-    }
 
-    function joinRoom() {
-      var roomCode = document.getElementById('room-code').value;
+      var roomcode = document.getElementById('room-code').value;
       var username = document.getElementById('username').value;
-
-      console.log("Room Code: " + roomCode);
-      console.log("Username: " + username);
+      initSocket(username, roomcode);
     }
 
     function menuOnEnter(event) {
