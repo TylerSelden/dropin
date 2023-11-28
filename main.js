@@ -122,7 +122,7 @@ function initConnect(data, connection) {
     // sendMessage(`joined the chat.`, connection);
 
     if (messages[data.roomcode] == undefined) messages[data.roomcode] = [];
-    lastRoomTimes[clients[from].roomcode] = Date.now();
+    lastRoomTimes[data.roomcode] = Date.now();
     for (var i in messages[data.roomcode]) {
       var message = messages[data.roomcode][i];
       connection.send(JSON.stringify({type: "message", username: message.username, message: message.message}));
