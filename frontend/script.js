@@ -16,6 +16,16 @@ function initSocket(username, roomcode) {
   socket.onopen = function() {
     socket.send(JSON.stringify({type: "init", username: username, roomcode: roomcode}));
   }
+
+  socket.onclose = function() {
+    alert("Connection closed.");
+    window.location.reload();
+  }
+
+  socket.onerror = function() {
+    alert("An error occurred.");
+    window.location.reload();
+  }
 }
 
 function sendMessage() {
