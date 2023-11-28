@@ -1,5 +1,6 @@
 var useHTTPS = true;
 var backupInterval = 5; // minutes
+var deleteInterval = 0.000115741; // days
 
 // modules
 var https = require('https');
@@ -113,7 +114,6 @@ setInterval(function() {
 }, backupInterval * 60 * 1000);
 
 // Every 5 minutes, delete all messages older than deleteInterval days
-var deleteInterval = 7;
 setInterval(function() {
   var now = new Date();
   for (var i in messages) {
