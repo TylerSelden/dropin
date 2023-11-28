@@ -1,6 +1,7 @@
 var useHTTPS = true;
 var backupInterval = 5; // minutes
-var deleteInterval = 0.000115741; // days
+var restore = true; // restore messages from backup.json
+var maxMessages = 5; // max messages to store per room
 
 // modules
 var https = require('https');
@@ -18,6 +19,13 @@ var server = new websocketModule({httpServer: httpServ});
 
 var clients = {};
 var messages = {};
+
+if (restore) {
+  fs.readFile("./backup.json", function(err, data) {
+    if (err) console.log(err);
+    messages = JSON.parse(data);
+  });
+}
 
 function Client(username, roomcode, connection) {
   var client = {
@@ -74,6 +82,11 @@ function sendMessage(msg, connection) {
     };
     if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
     messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
+
+    // remove old messages
+    if (messages[clients[from].roomcode].length > maxMessages) {
+      messages[clients[from].roomcode].splice(0, messages[clients[from].roomcode].length - maxMessages);
+    }
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
   }
@@ -99,7 +112,6 @@ function initConnect(data, connection) {
       var message = messages[data.roomcode][i];
       connection.send(JSON.stringify({type: "message", username: message.username, message: message.message}));
     }
-    //// send client prev messages!!
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid init data."}));
     return connection.close();
@@ -111,19 +123,4 @@ setInterval(function() {
   fs.writeFile("./backup.json", JSON.stringify(messages), function(err) {
     if (err) console.log(err);
   });
-}, backupInterval * 60 * 1000);
-
-// Every 5 minutes, delete all messages older than deleteInterval days
-setInterval(function() {
-  var now = new Date();
-  for (var i in messages) {
-    var room = messages[i];
-    for (var j in room) {
-      var message = room[j];
-      var date = new Date(message.date);
-      if (now - date > deleteInterval * 24 * 60 * 60 * 1000) {
-        room.splice(j, 1);
-      }
-    }
-  }
 }, backupInterval * 60 * 1000);
