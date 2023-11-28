@@ -1,4 +1,4 @@
-var useHTTPS = false;
+var useHTTPS = true;
 var backupInterval = 5; // minutes
 
 // modules
@@ -8,7 +8,7 @@ var fs = require('fs');
 var websocketModule = require('websocket').server;
 
 // initialization
-if (useHTTPS) var options = { key: fs.readFileSync('./ssl/key.pem'), cert: fs.readFileSync('./ssl/cert.pem') };
+if (useHTTPS) var options = { key: fs.readFileSync('../ssl/key.pem'), cert: fs.readFileSync('../ssl/cert.pem') };
 
 var port = (useHTTPS) ? 8443 : 8080;
 var httpServ = (useHTTPS) ? https.createServer(options) : http.createServer(options);
