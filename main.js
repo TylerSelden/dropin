@@ -1,6 +1,4 @@
 // ToDo:
-// fix overflowing chat content
-// fix chat content not scrolling to bottom when new message is received
 // Remember username / roomcodes in localStorage
 // max room number
 
@@ -130,7 +128,7 @@ function sendMessage(msg, connection) {
       }
     };
     if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
-    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`, date: new Date()});
+    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`});
     lastRoomTimes[clients[from].roomcode] = Date.now();
 
     // remove old messages
