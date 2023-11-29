@@ -156,11 +156,14 @@
     }
 
     #message-input {
-      width: calc(100% - 240px);
       padding: 8px;
       margin-right: 10px;
       font-size: 1em;
       box-sizing: border-box;
+      border: 1px solid #ccc; /* Add border */
+      border-radius: 5px; /* Add border-radius for rounded corners */
+      width: calc(100% - 240px); /* Adjust width */
+      resize: none; /* Disable resizing */
     }
 
     #send-button,
@@ -171,6 +174,16 @@
       border-radius: 5px;
       font-size: 1.2em;
       transition: background-color 0.3s ease;
+    }
+
+    .message-input-container {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      max-height: 15vh;
     }
 
     #send-button {
@@ -240,7 +253,7 @@
 
     <div id="chat-container">
       <div id="chat-content"></div>
-      <div style="display: flex; align-items: center; position: absolute; bottom: 0; left: 0; width: 100vw; max-height: 15vh;">
+      <div class="message-input-container">
         <textarea id="message-input" placeholder="Type your message..."></textarea>
         <button id="send-button" onclick="sendMessage()">Send</button>
         <button id="back-button" onclick="window.location.reload()">Back to Menu</button>
