@@ -1,4 +1,6 @@
 // ToDo:
+// fix overflowing chat content
+// fix chat content not scrolling to bottom when new message is received
 // Remember username / roomcodes in localStorage
 // max room number
 

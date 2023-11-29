@@ -12,13 +12,13 @@ function initSocket(username, roomcode) {
       setTimeout(() => { window.location.reload() }, 5000);
     }
 
-    var atBottom = (document.getElementById("chat-content").scrollTop == document.getElementById("chat-content").scrollHeight - document.getElementById("chat-content").offsetHeight) ? true : false;
-
+    var chatContent = document.getElementById("chat-content");
+    var atBottom = (Math.ceil(chatContent.scrollTop) >= chatContent.scrollHeight - chatContent.offsetHeight - 1);
     // safe to assume message at this point
     document.getElementById("chat-content").innerHTML += msg.message;
 
     // if user is already scrolled to bottom, scroll to bottom
-    if (atBottom) document.getElementById("chat-content").scrollTop = document.getElementById("chat-content").scrollHeight;
+    if (atBottom) chatContent.scrollTop = chatContent.scrollHeight;
   }
 
   socket.onopen = function() {
