@@ -1,5 +1,4 @@
 // ToDo:
-// Autoscroll
 // Remember username / roomcodes in localStorage
 // custom error and info messages client-side
 // max room number
@@ -109,6 +108,13 @@ function rateLimit(data, connection) {
 
   // check for empty data
   if (data.msg.trim() == "") return -1;
+
+  // check if message is too long
+  if (data.msg.length > 1024) {
+    connection.send(JSON.stringify({type: "error", message: "Max message length exceeded."}));
+    connection.close();
+    return -1;
+  }
   return 0;
 }
 

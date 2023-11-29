@@ -36,6 +36,7 @@ function initSocket(username, roomcode) {
 }
 
 function sendMessage() {
+  // ensure message isn't too long
   var msg = {
     type: "message",
     msg: document.getElementById("message-input").value
