@@ -1,6 +1,5 @@
 // ToDo:
 // Remember username / roomCodes in localStorage
-// max room number
 
 
 // default settings
