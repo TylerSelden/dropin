@@ -7,8 +7,9 @@ function initSocket(username, roomcode) {
   socket.onmessage = function(event) {
     var msg = JSON.parse(event.data);
     if (msg.type == "error") {
-      alert(msg.message);
-      window.location.reload();
+      socket.close();
+      error(msg.message);
+      setTimeout(() => { window.location.reload() }, 5000);
     }
 
     var atBottom = (document.getElementById("chat-content").scrollTop == document.getElementById("chat-content").scrollHeight - document.getElementById("chat-content").offsetHeight) ? true : false;
