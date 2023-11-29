@@ -1,5 +1,5 @@
 // ToDo:
-// Remember username / roomcodes in localStorage
+// Remember username / roomCodes in localStorage
 // max room number
 
 
@@ -11,6 +11,7 @@ var maxMessages = 500; // max messages to store per room
 var roomDeleteInterval = 7; // days
 var rateLimitInterval = 5; // seconds
 var rateLimitMax = 10; // messages
+var maxRooms = 50; // max rooms to have at one time
 
 
 // check command line arguments
@@ -48,11 +49,11 @@ if (restore) {
   });
 }
 
-function Client(username, roomcode, connection) {
+function Client(username, roomCode, connection) {
   var client = {
     username: username,
     connection: connection,
-    roomcode: roomcode
+    roomCode: roomCode
   };
 
   if (clients[username] == undefined) {
@@ -118,48 +119,66 @@ function rateLimit(data, connection) {
 }
 
 function sendMessage(msg, connection) {
-  try {
+  // try {
     var from = connection.username;
     // send to clients with same room code
     for (var i in clients) {
       var client = clients[i];
-      if (client.roomcode == clients[from].roomcode) {
+      if (client.roomCode == clients[from].roomCode) {
         client.connection.send(JSON.stringify({type: "message", username: from, message: `<p>${from}: ${msg}</p>`}));
       }
     };
-    if (messages[clients[from].roomcode] == undefined) messages[clients[from].roomcode] = [];
-    messages[clients[from].roomcode].push({username: from, message: `<p>${from}: ${msg}</p>`});
-    lastRoomTimes[clients[from].roomcode] = Date.now();
+
+    if (messages[clients[from].roomCode] == undefined) messages[clients[from].roomCode] = [];
+    messages[clients[from].roomCode].push({username: from, message: `<p>${from}: ${msg}</p>`});
+    lastRoomTimes[clients[from].roomCode] = Date.now();
 
     // remove old messages
-    if (messages[clients[from].roomcode].length >= maxMessages) {
-      messages[clients[from].roomcode].splice(0, messages[clients[from].roomcode].length - maxMessages);
+    if (messages[clients[from].roomCode].length >= maxMessages) {
+      messages[clients[from].roomCode].splice(0, messages[clients[from].roomCode].length - maxMessages);
     }
-  } catch {
-    connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
+
+    // check if rooms need to be deleted
+    checkMaxRooms();
+  // } catch {
+  //   connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
+  // }
+}
+
+function checkMaxRooms() {
+  console.log("before: ", lastRoomTimes);
+  if (Object.keys(lastRoomTimes).length > maxRooms) {
+    // remove oldest rooms (based on value of each) until there are only maxRooms left
+    var rooms = Object.keys(lastRoomTimes);
+    rooms.sort(function(a, b) { return lastRoomTimes[a] - lastRoomTimes[b] });
+    while (rooms.length > maxRooms) {
+      delete messages[rooms[0]];
+      delete lastRoomTimes[rooms[0]];
+      rooms.shift();
+    }
   }
 }
 
 
 function initConnect(data, connection) {
   try {
-    if (data.username == "" || data.roomcode == "") {
+    if (data.username == "" || data.roomCode == "") {
       connection.send(JSON.stringify({type: "error", message: "Field cannot be empty."}));
       connection.close();
     }
-    var clientMade = Client(data.username, data.roomcode, connection);
+    var clientMade = Client(data.username, data.roomCode, connection);
     if (!clientMade) {
       connection.send(JSON.stringify({type: "error", message: "Username already taken."}));
       return connection.close();
     }
     connection.username = data.username;
-    connection.send(JSON.stringify({type: "message", message: `Joined room: "${data.roomcode}"`}));
+    connection.send(JSON.stringify({type: "message", message: `Joined room: "${data.roomCode}"`}));
     // sendMessage(`joined the chat.`, connection);
 
-    if (messages[data.roomcode] == undefined) messages[data.roomcode] = [];
-    lastRoomTimes[data.roomcode] = Date.now();
-    for (var i in messages[data.roomcode]) {
-      var message = messages[data.roomcode][i];
+    if (messages[data.roomCode] == undefined) return;
+    lastRoomTimes[data.roomCode] = Date.now();
+    for (var i in messages[data.roomCode]) {
+      var message = messages[data.roomCode][i];
       connection.send(JSON.stringify({type: "message", username: message.username, message: message.message}));
     }
   } catch {

@@ -1,0 +1,224 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode, body.dark-mode #chat-container {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode h1 {
+  color: #fff;
+}
+body.dark-mode td {
+  color: #000;
+}
+body.dark-mode header, body.dark-mode button, body.dark-mode th {
+  background-color: #2779af;
+}
+
+header {
+  overflow: hidden;
+  z-index: 10;
+  text-align: left;
+  margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 10vh;
+  background-color: #3498db;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  color: #fff;
+}
+
+header * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+header h1 {
+  font-size: 2em;
+  margin: 0;
+  width: 25%;
+}
+
+.room-code-display-container {
+  /* Center this element in the header */
+  text-align: center;
+  align-content: center;
+  width: 50%;
+  margin: 0;
+}
+.room-code-display-container h3 {
+  font-weight: normal;
+  margin: 0;
+}
+
+header button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  margin: 10px;
+  padding: 0px 10px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+main {
+  text-align: center;
+}
+
+#room-info {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+#room-code,
+#username {
+  padding: 8px;
+  margin: 0 5px;
+  font-size: 1em;
+}
+
+#join-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
+
+#join-button:hover {
+  background-color: #2779af;
+}
+
+#dark-mode-toggle {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1em;
+}
+
+.dark-mode #dark-mode-toggle {
+  color: #fff;
+}
+
+#chat-container {
+  display: none;
+  position: fixed;
+  top: 60px; /* Adjusted from 0 to allow space for the header */
+  left: 0;
+  width: 100%;
+  bottom: 0; /* Adjusted to fill the space up to the message-input-container */
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+#chat-container.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+#chat-content {
+  height: calc(100% - 40px); /* Adjusted to consider space for the input area at the bottom */
+  overflow-y: auto;
+  text-align: left;
+  margin-top: 0; /* Removed margin-top to maximize space */
+}
+
+#message-input {
+  padding: 8px;
+  margin-right: 10px;
+  font-size: 1em;
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  width: calc(100% - 240px); /* Adjust width */
+  resize: none; /* Disable resizing */
+}
+
+#send-button,
+#back-button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
+
+.message-input-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  max-height: 15vh;
+  padding: 10px; /* Added padding to separate message-input-container from chat content */
+}
+
+#send-button {
+  background-color: #3498db;
+  color: #fff;
+}
+
+#send-button:hover {
+  background-color: #2779af;
+}
+
+#back-button {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+#back-button:hover {
+  background-color: #c0392b;
+}
+
+.alert {
+  z-index: 100;
+  width: 70vw;
+  height: 7vh;
+  position: absolute;
+  top: 3vh;
+  text-align: center;
+  background-color: #c50000;
+  border-radius: 5px;
+  border: 2px solid black;
+  /* Transition from above screen */
+  transform: translateY(-150%);
+  transition: transform 0.5s ease;
+}
+
+.alert h3 {
+  /* vertically center */
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
