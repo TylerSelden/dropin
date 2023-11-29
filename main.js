@@ -1,9 +1,21 @@
+// ToDo:
+// Header modification
+// Autoscroll
+// Remember username / roomcodes in localStorage
+// custom error and info messages client-side
+// max room number
+
+
 // default settings
 var useHTTPS = true;
 var backupInterval = 5; // minutes
 var restore = false; // restore messages from backup.json
 var maxMessages = 500; // max messages to store per room
 var roomDeleteInterval = 7; // days
+var rateLimitInterval = 5; // seconds
+var rateLimitMax = 10; // messages
+var filterRegex = /^\s*$/;
+
 
 // check command line arguments
 process.argv.forEach(function (val, index, array) {
@@ -59,7 +71,10 @@ function Client(username, roomcode, connection) {
 
 server.on('request', function(request) {
   var connection = request.accept(null, request.origin);
+
   connection.username = false;
+  connection.lastMsgTimes = [];
+
   connection.on('message', function(msg) {
     var msg = msg.utf8Data;
     try { var data = JSON.parse(msg); } catch { return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."})) }
@@ -71,6 +86,9 @@ server.on('request', function(request) {
     }
 
     // real message handling
+
+    if (rateLimit(data, connection) !== 0) return;
+
     if (data.type == "message") return sendMessage(data.msg, connection);
   });
   connection.on('close', function() {
@@ -81,6 +99,19 @@ server.on('request', function(request) {
 
 console.log("Server started on port " + port + ".");
 
+
+function rateLimit(data, connection) {
+  // time-based rate limits
+  if (connection.lastMsgTimes.length >= rateLimitMax) connection.lastMsgTimes.shift();
+  connection.lastMsgTimes.push(Date.now());
+  // check if lastMsgTimes[0] was less than 5 seconds ago
+  if (connection.lastMsgTimes[rateLimitMax - 1] !== undefined && connection.lastMsgTimes[0] >= connection.lastMsgTimes[rateLimitMax - 1] - rateLimitInterval * 1000) {
+    return connection.send(JSON.stringify({type: "error", message: "Rate limit exceeded."}));
+  }
+
+  // check for empty data
+  if (filterRegex.test(data.msg)) return -1;
+}
 
 function sendMessage(msg, connection) {
   try {

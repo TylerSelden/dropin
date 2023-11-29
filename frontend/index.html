@@ -212,6 +212,7 @@
       chatContainerDiv.style.display = 'block';
 
       document.getElementById('message-input').focus();
+      setTimeout(() => { document.getElementById('message-input').value = '' }, 10);
       var roomcode = document.getElementById('room-code').value;
       var username = document.getElementById('username').value;
       initSocket(username, roomcode);
