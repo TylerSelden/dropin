@@ -1,5 +1,4 @@
 // ToDo:
-// Header modification
 // Autoscroll
 // Remember username / roomcodes in localStorage
 // custom error and info messages client-side
