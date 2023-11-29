@@ -1,6 +1,5 @@
 // ToDo:
 // Remember username / roomcodes in localStorage
-// custom error and info messages client-side
 // max room number
 
 

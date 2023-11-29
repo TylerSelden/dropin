@@ -25,13 +25,14 @@ function initSocket(username, roomcode) {
   }
 
   socket.onclose = function() {
-    alert("Connection closed.");
-    window.location.reload();
+    error("Connection closed.");
+    setTimeout(() => { window.location.reload() }, 5000);
   }
 
   socket.onerror = function() {
-    alert("An error occurred.");
-    window.location.reload();
+    socket.close();
+    error("An error occurred.");
+    setTimeout(() => { window.location.reload() }, 5000);
   }
 }
 

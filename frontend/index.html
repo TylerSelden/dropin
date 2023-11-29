@@ -180,6 +180,31 @@
     #back-button:hover {
       background-color: #c0392b;
     }
+
+    .alert {
+      z-index: 100;
+      width: 70vw;
+      height: 7vh;
+      position: absolute;
+      top: 3vh;
+      text-align: center;
+      background-color: #c50000;
+      border-radius: 5px;
+      border: 2px solid black;
+      /* Transition from above screen */
+      transform: translateY(-150%);
+      transition: transform 0.5s ease;
+    }
+    
+    .alert h3 {
+      /* vertically center */
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -212,6 +237,9 @@
       </div>
     </div>
   </main>
+  <div class="alert red">
+    <h3>This is a test alert</h3>
+  </div>
 
   <!-- WebSocket functionality -->
   <script src="script.js"></script>
@@ -275,6 +303,25 @@
       body.classList.toggle('dark-mode');
       localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
     });
+
+    function alert(msg) {
+      var alert = document.getElementsByClassName('alert')[0];
+      alert.style.backgroundColor = '#00c3e6';
+      alert.getElementsByTagName('h3')[0].innerHTML = msg;
+      showAlertElem();
+    }
+    function error(msg) {
+      var alert = document.getElementsByClassName('alert')[0];
+      alert.style.backgroundColor = '#c50000';
+      alert.getElementsByTagName('h3')[0].innerHTML = msg;
+      showAlertElem();
+    }
+    // show alert div
+    function showAlertElem() {
+      var alert = document.getElementsByClassName('alert')[0];
+      alert.style.transform = 'translateY(0)';
+      setTimeout(() => { alert.style.transform = 'translateY(-150%)'; }, 5000);
+    }
   </script>
 
 </body>
