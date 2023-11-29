@@ -145,7 +145,6 @@ function sendMessage(msg, connection) {
 }
 
 function checkMaxRooms() {
-  console.log("before: ", lastRoomTimes);
   if (Object.keys(lastRoomTimes).length > maxRooms) {
     // remove oldest rooms (based on value of each) until there are only maxRooms left
     var rooms = Object.keys(lastRoomTimes);
