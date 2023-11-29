@@ -5,6 +5,10 @@ function showChat() {
   var roomCode = document.getElementById('room-code').value;
   var username = document.getElementById('username').value;
 
+  // write roomCode and username to localstorage
+  localStorage.setItem('roomCode', roomCode);
+  localStorage.setItem('username', username);
+
   roomInfoDiv.style.display = 'none';
   chatContainerDiv.style.display = 'block';
 
@@ -33,13 +37,19 @@ window.onload = function() {
     localStorage.setItem('darkMode', 'true');
   }
 
+  // random username guestXXXXX
+  document.getElementById("username").value = "guest" + Math.floor(Math.random() * 100000);
+
+  // presets
+
   // GET parameter stuff
   params = new URL(document.location).searchParams;
   if (params.get("roomcode")) {
     document.getElementById("room-code").value = params.get("roomcode");
   }
-  // random username guestXXXXX
-  document.getElementById("username").value = "guest" + Math.floor(Math.random() * 100000);
+  // get roomcode and username from localstorage if exists
+  if (localStorage.getItem('roomCode')) document.getElementById("room-code").value = localStorage.getItem('roomCode');
+  if (localStorage.getItem('username')) document.getElementById("username").value = localStorage.getItem('username');
 }
 
 var isDarkMode = localStorage.getItem('darkMode') == 'true';
