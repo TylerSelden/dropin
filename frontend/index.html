@@ -137,7 +137,7 @@
     }
 
     #chat-content {
-      height: calc(100vh - 15vh); /* Adjusted to consider space for the input area at the bottom */
+      height: 85vh; /* Adjusted to consider space for the input area at the bottom */
       overflow-y: auto;
       text-align: left;
     }
@@ -202,7 +202,7 @@
 
     <div id="chat-container">
       <div id="chat-content"></div>
-      <div style="display: flex; align-items: center; position: absolute; bottom: 0; left: 0; width: 100vw;">
+      <div style="display: flex; align-items: center; position: absolute; bottom: 0; left: 0; width: 100vw; max-height: 15vh;">
         <textarea id="message-input" placeholder="Type your message..."></textarea>
         <button id="send-button" onclick="sendMessage()">Send</button>
         <button id="back-button" onclick="window.location.reload()">Back to Menu</button>

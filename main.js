@@ -13,7 +13,6 @@ var maxMessages = 500; // max messages to store per room
 var roomDeleteInterval = 7; // days
 var rateLimitInterval = 5; // seconds
 var rateLimitMax = 10; // messages
-var filterRegex = /^\s*$/;
 
 
 // check command line arguments
@@ -109,7 +108,8 @@ function rateLimit(data, connection) {
   }
 
   // check for empty data
-  if (filterRegex.test(data.msg)) return -1;
+  if (data.msg.trim() == "") return -1;
+  return 0;
 }
 
 function sendMessage(msg, connection) {
