@@ -30,6 +30,11 @@ var fs = require('fs');
 var websocketModule = require('websocket').server;
 
 // initialization
+
+var adminUsername = fs.readFileSync('./secrets/adminUsername', "utf8");
+var adminPassword = fs.readFileSync('./secrets/adminPassword', "utf8");
+
+
 if (useHTTPS) var options = { key: fs.readFileSync('../ssl/key.pem'), cert: fs.readFileSync('../ssl/cert.pem') };
 
 var port = (useHTTPS) ? 8443 : 8080;
@@ -76,8 +81,15 @@ server.on('request', function(request) {
     try { var data = JSON.parse(msg); } catch { return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."})) }
     if (data.type == undefined) return connection.send(JSON.stringify({type: "error", message: "Invalid JSON struct."}));
 
+    if (data.type == "adminCommand") {
+      return adminCommand(data, connection);
+    }
+
     // initial connection
     if (!connection.username) {
+      if (data.type == "adminInit") {
+        return adminInit(data, connection);
+      }
       return initConnect(data, connection);
     }
 
@@ -93,7 +105,7 @@ server.on('request', function(request) {
   });
 });
 
-console.log("Server started on port " + port + ".");
+console.log(`Server started on port ${port}.\n\nAdmin username: ${adminUsername}\nAdmin password: ${"*".repeat(adminPassword.length)}`);
 
 
 function rateLimit(data, connection) {
@@ -182,6 +194,50 @@ function initConnect(data, connection) {
   } catch {
     connection.send(JSON.stringify({type: "error", message: "Invalid init data."}));
     return connection.close();
+  }
+}
+
+function adminAuth(data) {
+  if (data.username !== adminUsername || data.password !== adminPassword) {
+    connection.send(JSON.stringify({type: "error", message: "Invalid credentials."}));
+    return false;
+  }
+  return true;
+}
+
+function adminInit(data, connection) {
+  console.log(data);
+  // authenticate
+  if (!adminAuth(data)) return;
+  
+  // get rooms listing
+  var roomListing = [];
+  for (var i in lastRoomTimes) roomListing.push({ name: i, messages: messages[i].length, lastTime: lastRoomTimes[i] })
+  var msg = {
+    type: "adminMessage",
+    message: roomListing
+  }
+  connection.send(JSON.stringify(msg));
+}
+
+var adminCommands = {
+  "delete": function(argument) {
+    console.log("deleting room: " + argument);
+    delete messages[argument];
+    delete lastRoomTimes[argument];
+  }
+}
+
+function adminCommand(data, connection) {
+  console.log(data);
+  // authenticate
+  if (!adminAuth(data)) return;
+
+  try {
+    adminCommands[data.msg.command](data.msg.argument);
+    adminInit(data, connection); // update listing
+  } catch {
+    connection.send(JSON.stringify({type: "error", message: "Invalid command."}));
   }
 }
 

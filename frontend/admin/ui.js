@@ -34,11 +34,6 @@ window.onload = function() {
 
   // presets
 
-  // GET parameter stuff
-  params = new URL(document.location).searchParams;
-  if (params.get("username")) {
-    document.getElementById("username").value = params.get("username");
-  }
   // get username and password from localstorage if exists
   if (localStorage.getItem('adminUsername')) document.getElementById("username").value = localStorage.getItem('adminUsername');
   if (localStorage.getItem('adminPassword')) document.getElementById("password").value = localStorage.getItem('adminPassword');

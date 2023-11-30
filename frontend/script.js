@@ -1,8 +1,8 @@
 var socket;
 
 function initSocket(username, roomCode) {
-  socket = new WebSocket("wss://server.benti.dev:8443");
-  // socket = new WebSocket("ws://localhost:8080");
+  // socket = new WebSocket("wss://server.benti.dev:8443");
+  socket = new WebSocket("ws://localhost:8080");
 
   socket.onmessage = function(event) {
     var msg = JSON.parse(event.data);
