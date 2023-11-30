@@ -2,8 +2,8 @@ function showPanel() {
   var roomInfoDiv = document.getElementById('room-info');
   var panelContainerDiv = document.getElementById('panel-container');
 
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+  username = document.getElementById('username').value;
+  password = document.getElementById('password').value;
 
   // write username and password to localstorage
   localStorage.setItem('adminUsername', username);
@@ -13,9 +13,7 @@ function showPanel() {
   panelContainerDiv.style.display = 'block';
 
   document.getElementById('room-code-display').innerHTML = "Admin Panel";
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
-  initSocket(password, username);
+  initSocket();
 }
 
 function menuOnEnter(event) {
