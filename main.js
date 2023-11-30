@@ -197,7 +197,7 @@ function initConnect(data, connection) {
   }
 }
 
-function adminAuth(data) {
+function adminAuth(data, connection) {
   if (data.username !== adminUsername || data.password !== adminPassword) {
     connection.send(JSON.stringify({type: "error", message: "Invalid credentials."}));
     return false;
@@ -207,7 +207,7 @@ function adminAuth(data) {
 
 function adminInit(data, connection) {
   // authenticate
-  if (!adminAuth(data)) return;
+  if (!adminAuth(data, connection)) return;
   
   // get rooms listing
   var roomListing = [];
@@ -228,7 +228,7 @@ var adminCommands = {
 
 function adminCommand(data, connection) {
   // authenticate
-  if (!adminAuth(data)) return;
+  if (!adminAuth(data, connection)) return;
 
   try {
     adminCommands[data.msg.command](data.msg.argument);
