@@ -130,7 +130,7 @@ function rateLimit(data, connection) {
 }
 
 function sendMessage(msg, connection) {
-  // try {
+  try {
     var from = connection.username;
     // send to clients with same room code
     for (var i in clients) {
@@ -151,9 +151,9 @@ function sendMessage(msg, connection) {
 
     // check if rooms need to be deleted
     checkMaxRooms();
-  // } catch {
-  //   connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
-  // }
+  } catch {
+    connection.send(JSON.stringify({type: "error", message: "Invalid message."}));
+  }
 }
 
 function checkMaxRooms() {
