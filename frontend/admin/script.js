@@ -1,10 +1,10 @@
-var socket;
+var socket, username, password;
 
 // todo:
 // edit onmessage
 // handle adminInit
 
-function initSocket(username, password) {
+function initSocket() {
   socket = new WebSocket("wss://server.benti.dev:8443");
   // socket = new WebSocket("ws://localhost:8080");
 
@@ -41,11 +41,13 @@ function initSocket(username, password) {
   }
 }
 
-function sendMessage() {
+function sendMessage(msg) {
   // ensure message isn't too long
   var msg = {
-    type: "adminMessage",
-    msg: document.getElementById("message-input").value
+    type: "adminCommand",
+    msg: msg,
+    username: username,
+    password: password
   };
   socket.send(JSON.stringify(msg));
   // enter key delay
