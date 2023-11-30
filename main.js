@@ -13,6 +13,7 @@ var rateLimitMax = 10; // messages
 var maxRooms = 50; // max rooms to have at one time
 var adminUsername = "admin";
 var adminPassword = "password"; // CHANGE THIS ON RUN
+var backupFile = "./backup.json";
 
 
 // check command line arguments
@@ -46,9 +47,10 @@ var messages = {};
 var lastRoomTimes = {};
 
 if (restore) {
-  fs.readFile("./backup.json", function(err, data) {
+  fs.readFile(backupFile, function(err, data) {
     if (err) console.log(err);
-    messages = JSON.parse(data);
+    messages = JSON.parse(data[0]);
+    lastRoomTimes = JSON.parse(data[1]);
   });
 }
 
@@ -240,7 +242,11 @@ function adminCommand(data, connection) {
 // Every 5 minutes, back up all messages to backup.json
 setInterval(function() {
   // back up messages
-  fs.writeFile("./backup.json", JSON.stringify(messages), function(err) {
+  var backupData = [
+    messages,
+    lastRoomTimes
+  ];
+  fs.writeFile(backupFile, JSON.stringify(backupData), function(err) {
     if (err) console.log(err);
   });
 
