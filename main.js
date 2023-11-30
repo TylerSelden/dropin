@@ -11,6 +11,8 @@ var roomDeleteInterval = 7; // days
 var rateLimitInterval = 5; // seconds
 var rateLimitMax = 10; // messages
 var maxRooms = 50; // max rooms to have at one time
+var adminUsername = "admin";
+var adminPassword = "password"; // CHANGE THIS ON RUN
 
 
 // check command line arguments
@@ -105,7 +107,7 @@ server.on('request', function(request) {
   });
 });
 
-console.log(`Server started on port ${port}.\n\nAdmin username: ${adminUsername}\nAdmin password: ${"*".repeat(adminPassword.length)}`);
+console.log(`Server started on port ${port}.\n\nAdmin username: "${adminUsername}"\nAdmin password: "${"*".repeat(adminPassword.length)}"`);
 
 
 function rateLimit(data, connection) {
