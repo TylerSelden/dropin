@@ -38,24 +38,57 @@
             <button>Delete</button>
           </div>
         </div>
+        <div class="room-card">
+          <h2>Room #1</h2>
+          <p><strong>Messages:</strong> 10</p>
+          <p><strong>Last modified:</strong> Dec 21, 2023, 21:30</p>
+          <div class="button-container">
+            <button>Join</button>
+            <button>Delete</button>
+          </div>
+        </div>
+        <div class="room-card">
+          <h2>Room #1</h2>
+          <p><strong>Messages:</strong> 10</p>
+          <p><strong>Last modified:</strong> Dec 21, 2023, 21:30</p>
+          <div class="button-container">
+            <button>Join</button>
+            <button>Delete</button>
+          </div>
+        </div>
+        <div class="room-card">
+          <h2>Room #1</h2>
+          <p><strong>Messages:</strong> 10</p>
+          <p><strong>Last modified:</strong> Dec 21, 2023, 21:30</p>
+          <div class="button-container">
+            <button>Join</button>
+            <button>Delete</button>
+          </div>
+        </div>
     </div>
     <style>
       /* panel container styling, room-cards will be a grid */
+      /* make room-cards a grid */ 
       #panel-container {
-        display: none;
+        display: grid;
         grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
         grid-gap: 1rem;
         padding: 1rem;
+        width: 100%;
       }
+
       .room-card {
         position: relative;
-        width: 30vw;
-        height: 30vw;
+        width: 28vw;
+        height: 20vw;
         background-color: #1e90ff;
         padding: 1rem;
         border-radius: 0.5rem;
         color: white;
         text-align: center;
+        display: inline-block;
+        float: left;
+        margin: 1vw;
       }
       .room-card button {
         width: 45%;
@@ -78,7 +111,7 @@
       }
       .button-container {
         position: absolute;
-        bottom: 0;
+        bottom: 1vh;
         left: 0;
         width: 100%;
       }
