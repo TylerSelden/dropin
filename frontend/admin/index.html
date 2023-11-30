@@ -30,68 +30,58 @@
     <div id="panel-container">
         <!-- Create a grid of square cells, each 30vw x 30vw, and having a blue background with a small header inside -->
         <div class="room-card">
-          <h2>Room Name 1</h2>
+          <h2>Room #1</h2>
           <p><strong>Messages:</strong> 10</p>
-          <button class="join-button">Join</button>
-          <button class="delete-button">Delete</button>
-        </div>
-  
-        <div class="room-card">
-          <h3>Room Name 2</h3>
-          <p>Messages: 5</p>
-          <button class="join-button">Join</button>
-          <button class="delete-button">Delete</button>
+          <p><strong>Last modified:</strong> Dec 21, 2023, 21:30</p>
+          <div class="button-container">
+            <button>Join</button>
+            <button>Delete</button>
+          </div>
         </div>
     </div>
     <style>
-      /* grid stuff */
+      /* panel container styling, room-cards will be a grid */
+      #panel-container {
+        display: none;
+        grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+        grid-gap: 1rem;
+        padding: 1rem;
+      }
       .room-card {
-    display: inline-block;
-    width: 30vw;
-    height: 30vw;
-    background-color: #3498db;
-    margin: 10px;
-    text-align: center;
-    position: relative;
-    color: #fff;
-  }
-
-  .room-card h2 {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .room-card .room-details {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .room-card p {
-    margin: 25% 0;
-  }
-
-
-  .room-card button {
-    width: 45%;
-    padding: 8px;
-    margin: 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #3498db;
-    font-size: 1em;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .room-card button:hover {
-    background-color: #3498db;
-    color: #fff;
-  }
+        position: relative;
+        width: 30vw;
+        height: 30vw;
+        background-color: #1e90ff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: white;
+        text-align: center;
+      }
+      .room-card button {
+        width: 45%;
+        padding: 8px;
+        margin: 5px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #2779af;
+        color: #fff;
+        font-size: 1em;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      /* darken color on hover */
+      .room-card button:hover {
+        background-color: #226a99;
+      }
+      .room-card button:active {
+        background-color: #1e6190;
+      }
+      .button-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
     </style>
   </main>
   <div class="alert red">
