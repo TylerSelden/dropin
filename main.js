@@ -206,7 +206,6 @@ function adminAuth(data) {
 }
 
 function adminInit(data, connection) {
-  console.log(data);
   // authenticate
   if (!adminAuth(data)) return;
   
@@ -222,14 +221,12 @@ function adminInit(data, connection) {
 
 var adminCommands = {
   "delete": function(argument) {
-    console.log("deleting room: " + argument);
     delete messages[argument];
     delete lastRoomTimes[argument];
   }
 }
 
 function adminCommand(data, connection) {
-  console.log(data);
   // authenticate
   if (!adminAuth(data)) return;
 

@@ -5,8 +5,8 @@ var socket, username, password;
 // handle adminInit
 
 function initSocket() {
-  // socket = new WebSocket("wss://server.benti.dev:8443");
-  socket = new WebSocket("ws://localhost:8080");
+  socket = new WebSocket("wss://server.benti.dev:8443");
+  // socket = new WebSocket("ws://localhost:8080");
 
   socket.onmessage = function(event) {
     var msg = JSON.parse(event.data);
@@ -15,8 +15,6 @@ function initSocket() {
       error(msg.message);
       setTimeout(() => { window.location.reload() }, 5000);
     }
-
-    console.log(msg);
 
     if (msg.type !== "adminMessage") return;
     var panelContainer = document.getElementById("panel-container");
