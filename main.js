@@ -33,9 +33,6 @@ var websocketModule = require('websocket').server;
 
 // initialization
 
-var adminUsername = fs.readFileSync('./secrets/adminUsername', "utf8");
-var adminPassword = fs.readFileSync('./secrets/adminPassword', "utf8");
-
 
 if (useHTTPS) var options = { key: fs.readFileSync('../ssl/key.pem'), cert: fs.readFileSync('../ssl/cert.pem') };
 
