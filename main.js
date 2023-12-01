@@ -49,8 +49,9 @@ var lastRoomTimes = {};
 if (restore) {
   fs.readFile(backupFile, function(err, data) {
     if (err) console.log(err);
-    messages = JSON.parse(data[0]);
-    lastRoomTimes = JSON.parse(data[1]);
+    data = JSON.parse(data);
+    messages = data[0];
+    lastRoomTimes = data[1];
   });
 }
 
