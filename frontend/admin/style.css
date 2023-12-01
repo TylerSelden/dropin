@@ -125,7 +125,7 @@ main {
 
 #panel-container {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 60px; /* Adjusted from 0 to allow space for the header */
   left: 0;
   width: 100%;

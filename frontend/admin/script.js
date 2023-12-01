@@ -23,7 +23,7 @@ function initSocket() {
 
     for (var room of msg.message) {
       panelContainer.innerHTML += `<div class="room-card">
-      <h2>${room.name}</h2>
+      <h2>"${room.name}"</h2>
       <p><strong>Messages:</strong> ${room.messages}</p>
       <p><strong>Last modified:</strong> ${new Date(room.lastTime).toLocaleString()}</p>
       <div class="button-container">

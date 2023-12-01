@@ -213,7 +213,13 @@ function adminInit(data, connection) {
   
   // get rooms listing
   var roomListing = [];
-  for (var i in lastRoomTimes) roomListing.push({ name: i, messages: messages[i].length, lastTime: lastRoomTimes[i] })
+  for (var i in lastRoomTimes) roomListing.push({ name: i, messages: messages[i].length, lastTime: lastRoomTimes[i] });
+
+  // sort rooms by lastTime, then by messages
+  roomListing.sort(function(a, b) {
+    if (a.lastTime == b.lastTime) return b.messages - a.messages;
+    return b.lastTime - a.lastTime;
+  });
   var msg = {
     type: "adminMessage",
     message: roomListing

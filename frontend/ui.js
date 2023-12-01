@@ -41,15 +41,15 @@ window.onload = function() {
   document.getElementById("username").value = "guest" + Math.floor(Math.random() * 100000);
 
   // presets
-
+  // get roomcode and username from localstorage if exists
+  if (localStorage.getItem('roomCode')) document.getElementById("room-code").value = localStorage.getItem('roomCode');
+  if (localStorage.getItem('username')) document.getElementById("username").value = localStorage.getItem('username');
+  
   // GET parameter stuff
   params = new URL(document.location).searchParams;
   if (params.get("roomcode")) {
     document.getElementById("room-code").value = params.get("roomcode");
   }
-  // get roomcode and username from localstorage if exists
-  if (localStorage.getItem('roomCode')) document.getElementById("room-code").value = localStorage.getItem('roomCode');
-  if (localStorage.getItem('username')) document.getElementById("username").value = localStorage.getItem('username');
 }
 
 var isDarkMode = localStorage.getItem('darkMode') == 'true';
