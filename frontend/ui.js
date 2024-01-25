@@ -13,7 +13,7 @@ function showChat() {
   chatContainerDiv.style.display = 'block';
 
   document.getElementById('message-input').focus();
-  document.getElementById('room-code-display').innerHTML = roomCode;
+  document.getElementById('room-code-display').innerHTML = "Hover cursor to view room code";
   setTimeout(() => { document.getElementById('message-input').value = '' }, 10);
   var roomcode = document.getElementById('room-code').value;
   var username = document.getElementById('username').value;
@@ -83,4 +83,12 @@ function showAlertElem() {
   var alert = document.getElementsByClassName('alert')[0];
   alert.style.transform = 'translateY(0)';
   setTimeout(() => { alert.style.transform = 'translateY(-150%)'; }, 5000);
+}
+
+function showRoomCode() {
+  document.getElementById('room-code-display').innerHTML = localStorage.getItem('roomCode');
+}
+
+function hideRoomCode() {
+  document.getElementById('room-code-display').innerHTML = 'Hover cursor to view room code';
 }
