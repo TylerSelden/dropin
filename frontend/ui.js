@@ -86,9 +86,11 @@ function showAlertElem() {
 }
 
 function showRoomCode() {
+  if (document.getElementById("chat-container").style.display !== 'block') return;
   document.getElementById('room-code-display').innerHTML = localStorage.getItem('roomCode');
 }
 
 function hideRoomCode() {
+  if (document.getElementById("chat-container").style.display !== 'block') return;
   document.getElementById('room-code-display').innerHTML = 'Hover cursor to view room code';
 }
