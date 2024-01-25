@@ -27,6 +27,10 @@ body.dark-mode header, body.dark-mode button, body.dark-mode th {
   background-color: #2779af;
 }
 
+body.dark-mode a {
+  color: #ccc;
+}
+
 header {
   overflow: hidden;
   z-index: 10;
@@ -87,6 +91,7 @@ main {
 #room-info {
   font-size: 1.2em;
   margin-bottom: 20px;
+  margin-top: 25%;
 }
 
 #room-code,
@@ -221,4 +226,13 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+
+#info {
+  background-color: #282828;
+  padding: 2%;
+  /* text-align: left; */
+  margin-top: 10%;
+  border-radius: 2px;
+  color: #ddd;
 }

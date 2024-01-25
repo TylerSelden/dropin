@@ -87,6 +87,7 @@ main {
 #room-info {
   font-size: 1.2em;
   margin-bottom: 20px;
+  margin-top: 25%;
 }
 
 #username,
@@ -171,4 +172,13 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+
+#info {
+  background-color: #282828;
+  padding: 2%;
+  /* text-align: left; */
+  margin-top: 10%;
+  border-radius: 2px;
+  color: #ddd;
 }
