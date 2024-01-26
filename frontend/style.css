@@ -65,6 +65,9 @@ header h1 {
   align-content: center;
   width: 50%;
   margin: 0;
+  color: #ddd;
+}
+.dark-mode .room-code-display-container {
   color: #bbb;
 }
 .room-code-display-container h3 {
@@ -99,6 +102,10 @@ main {
   font-size: 1.2em;
   margin-bottom: 20px;
   margin-top: 25%;
+}
+
+#room-info label, #room-info input {
+  margin-bottom: 10px;
 }
 
 #room-code,
@@ -176,6 +183,7 @@ main {
   padding: 10px;
   cursor: pointer;
   border: none;
+  margin-right: 10px;
   border-radius: 5px;
   font-size: 1.2em;
   transition: background-color 0.3s ease;
@@ -236,10 +244,14 @@ main {
 }
 
 #info {
-  background-color: #282828;
+  background-color: #c0c0c0;
   padding: 2%;
-  /* text-align: left; */
   margin-top: 10%;
   border-radius: 2px;
+  color: black;
+}
+
+.dark-mode #info {
+  background-color: #282828;
   color: #ddd;
 }

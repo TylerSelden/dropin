@@ -1,3 +1,5 @@
+var currentRoom;
+
 function showChat() {
   var roomInfoDiv = document.getElementById('room-info');
   var chatContainerDiv = document.getElementById('chat-container');
@@ -7,6 +9,7 @@ function showChat() {
 
   // write roomCode and username to localstorage
   localStorage.setItem('roomCode', roomCode);
+  currentRoom = roomCode;
   localStorage.setItem('username', username);
 
   roomInfoDiv.style.display = 'none';
@@ -87,7 +90,7 @@ function showAlertElem() {
 
 function showRoomCode() {
   if (document.getElementById("chat-container").style.display !== 'block') return;
-  document.getElementById('room-code-display').innerHTML = localStorage.getItem('roomCode');
+  document.getElementById('room-code-display').innerHTML = currentRoom; 
 }
 
 function hideRoomCode() {

@@ -90,6 +90,10 @@ main {
   margin-top: 25%;
 }
 
+#room-info label, #room-info input {
+  margin-bottom: 10px;
+}
+
 #username,
 #password {
   padding: 8px;
@@ -175,10 +179,14 @@ main {
 }
 
 #info {
-  background-color: #282828;
+  background-color: #c0c0c0;
   padding: 2%;
-  /* text-align: left; */
   margin-top: 10%;
   border-radius: 2px;
+  color: black;
+}
+
+.dark-mode #info {
+  background-color: #282828;
   color: #ddd;
 }
