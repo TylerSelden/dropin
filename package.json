@@ -1,6 +1,6 @@
 {
   "name": "dropin",
-  "version": "1.0.35",
+  "version": "1.0.4",
   "description": "A simple, lightweight chat application",
   "main": "main.js",
   "scripts": {
