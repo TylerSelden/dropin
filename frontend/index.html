@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DropIn Chat</title>
-  <link rel="stylesheet" href="style.css?v=1.0.4">
+  <link rel="stylesheet" href="style.css?v=1.2.5">
 </head>
 <body>
 
@@ -25,6 +25,11 @@
       <label>Username:</label>
       <input type="text" id="username" placeholder="Enter username">
       <button id="join-button" onclick="showChat()">Join Room</button>
+      <br>
+      <div id="hide-room-code-container">
+        <input type="checkbox" id="hide-room-code" onclick="toggleRoomCodeVisibility()">
+        <label for="hide-room-code">Hide Room Code</label> 
+      </div>
 
       <div id="info">
         <h2>How does DropIn work?</h2>
@@ -33,7 +38,7 @@
         <p>Share the room code with your friends to invite them to the chat.</p>
         <p>Rooms with no activity will be automatically deleted after some time.</p>
         <br>
-        <p>Version 1.0.4</p>
+        <p>Version 1.2.5</p>
       </div>
     </div>
 
@@ -51,8 +56,8 @@
   </div>
 
   <!-- WebSocket functionality -->
-  <script src="script.js?v=1.0.4"></script>
-  <script src="ui.js?v=1.0.4"></script>
+  <script src="script.js?v=1.2.5"></script>
+  <script src="ui.js?v=1.2.5"></script>
 
 </body>
 </html>

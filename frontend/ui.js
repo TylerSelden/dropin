@@ -47,6 +47,11 @@ window.onload = function() {
   // get roomcode and username from localstorage if exists
   if (localStorage.getItem('roomCode')) document.getElementById("room-code").value = localStorage.getItem('roomCode');
   if (localStorage.getItem('username')) document.getElementById("username").value = localStorage.getItem('username');
+  if (localStorage.getItem('hideRoomCode')) {
+    document.getElementById("room-code").type = 'password';
+    // check the box
+    document.getElementById("hide-room-code").checked = true;
+  }
   
   // GET parameter stuff
   params = new URL(document.location).searchParams;
@@ -96,4 +101,16 @@ function showRoomCode() {
 function hideRoomCode() {
   if (document.getElementById("chat-container").style.display !== 'block') return;
   document.getElementById('room-code-display').innerHTML = 'Hover cursor to view room code';
+}
+
+function toggleRoomCodeVisibility() {
+  // change room-code between text and password
+  var roomCode = document.getElementById('room-code');
+  if (roomCode.type === 'password') {
+    roomCode.type = 'text';
+    localStorage.removeItem('hideRoomCode');
+  } else {
+    roomCode.type = 'password';
+    localStorage.setItem('hideRoomCode', 'true');
+  }
 }

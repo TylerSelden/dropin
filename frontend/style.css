@@ -108,6 +108,13 @@ main {
   margin-bottom: 10px;
 }
 
+#hide-room-code-container {
+  /* float to beneath room-code */
+  float: left;
+  width: 50%;
+  user-select: none;
+}
+
 #room-code,
 #username {
   padding: 8px;
