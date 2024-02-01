@@ -12,7 +12,7 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body.dark-mode, body.dark-mode #panel-container {
+body.dark-mode, body.dark-mode #card-container {
   background-color: #333;
   color: #fff;
 }
@@ -126,31 +126,6 @@ main {
 
 .dark-mode #dark-mode-toggle {
   color: #fff;
-}
-
-#panel-container {
-  display: none;
-  position: absolute;
-  top: 60px; /* Adjusted from 0 to allow space for the header */
-  left: 0;
-  width: 100%;
-  bottom: 0; /* Adjusted to fill the space up to the message-input-container */
-  background-color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-#panel-container.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
-#panel-content {
-  height: calc(100% - 40px); /* Adjusted to consider space for the input area at the bottom */
-  overflow-y: auto;
-  text-align: left;
-  margin-top: 0; /* Removed margin-top to maximize space */
 }
 
 .alert {

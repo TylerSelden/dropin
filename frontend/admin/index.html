@@ -38,17 +38,46 @@
     </div>
 
     <div id="panel-container" style="display: none;">
-      <h2>There are no active rooms.</h2>
+      <h1>Test</h1>
+      <div id="card-container">
+        <h2>There are no active rooms.</h2>
+      </div>
     </div>
     <style>
       /* panel container styling, room-cards will be a grid */
       /* make room-cards a grid */ 
-      #panel-container {
+      #card-container {
+        /* display: none; */
+        position: absolute;
+        top: 60px; /* Adjusted from 0 to allow space for the header */
+        left: 0;
+        width: 100%;
+        bottom: 0; /* Adjusted to fill the space up to the message-input-container */
+        background-color: #fff;
+        padding: 20px;
+        box-sizing: border-box;
+        transition: background-color 0.5s ease, color 0.5s ease;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
         grid-gap: 1rem;
         padding: 1rem;
-        width: 100%;
+        margin-top: 50vh;
+      }
+
+      #panel-container {
+        /* width: 100%; */
+      }
+
+      #card-container.dark-mode {
+        background-color: #333;
+        color: #fff;
+      }
+
+      #panel-content {
+        height: calc(100% - 40px); /* Adjusted to consider space for the input area at the bottom */
+        overflow-y: auto;
+        text-align: left;
+        margin-top: 0; /* Removed margin-top to maximize space */
       }
 
       .room-card {

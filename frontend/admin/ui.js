@@ -37,6 +37,9 @@ window.onload = function() {
   // get username and password from localstorage if exists
   if (localStorage.getItem('adminUsername')) document.getElementById("username").value = localStorage.getItem('adminUsername');
   if (localStorage.getItem('adminPassword')) document.getElementById("password").value = localStorage.getItem('adminPassword');
+
+  // auto login
+  // if (localStorage.getItem('adminUsername') && localStorage.getItem('adminPassword')) showPanel();
 }
 
 var isDarkMode = localStorage.getItem('darkMode') == 'true';

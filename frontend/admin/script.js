@@ -17,7 +17,7 @@ function initSocket() {
     }
 
     if (msg.type !== "adminMessage") return;
-    var panelContainer = document.getElementById("panel-container");
+    var panelContainer = document.getElementById("card-container");
     if (msg.message.length > 0) panelContainer.innerHTML = "";
 
 
