@@ -1,0 +1,13 @@
+{
+  "useHTTPS": false,
+  "backupInterval": 5,
+  "restore": false,
+  "maxMessages": 500,
+  "roomDeleteInterval": 7,
+  "rateLimitInterval": 5,
+  "rateLimitMax": 10,
+  "maxRooms": 50,
+  "adminUsername": "admin",
+  "adminPassword": "password",
+  "backupFile": "./backup.json"
+}

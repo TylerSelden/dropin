@@ -1,6 +1,4 @@
-// ToDo:
-// Remember username / roomCodes in localStorage
-
+// additional settings: settings.json
 
 // default settings
 var useHTTPS = true;
@@ -16,16 +14,6 @@ var adminPassword = "password"; // CHANGE THIS ON RUN
 var backupFile = "./backup.json";
 
 
-// check command line arguments
-process.argv.forEach(function (val, index, array) {
-  if (index < 2) return;
-  try {
-    eval(val);
-  } catch {
-    console.log("Invalid command line argument: " + val);
-  }
-});
-
 // modules
 var https = require('https');
 var http = require('http');
@@ -34,18 +22,32 @@ var websocketModule = require('websocket').server;
 
 // initialization
 
+// read settings from settings.json
+var settings = fs.readFileSync('./settings.json');
+try {
+  settings = JSON.parse(settings);
+  for (var i in settings) {
+    eval(`${i} = settings[i]`);
+  }
+} catch {
+  console.log("Invalid settings.json file. Using default settings.");
+}
 
+// configure HTTPS
 if (useHTTPS) var options = { key: fs.readFileSync('../ssl/key.pem'), cert: fs.readFileSync('../ssl/cert.pem') };
 
+// create server
 var port = (useHTTPS) ? 8443 : 8080;
 var httpServ = (useHTTPS) ? https.createServer(options) : http.createServer(options);
 httpServ.listen(port);
 var server = new websocketModule({httpServer: httpServ});
 
+// more declarations
 var clients = {};
 var messages = {};
 var lastRoomTimes = {};
 
+// restore messages from backup.json
 if (restore) {
   fs.readFile(backupFile, function(err, data) {
     if (err) console.log(err);
@@ -69,8 +71,13 @@ function Client(username, roomCode, connection) {
   return false;
 }
 
-// actual server programming
 
+
+// ================================================================
+// ================================================================
+
+
+// actual server programming
 
 server.on('request', function(request) {
   var connection = request.accept(null, request.origin);
@@ -110,6 +117,18 @@ server.on('request', function(request) {
 console.log(`Server started on port ${port}.\n\nAdmin username: "${adminUsername}"\nAdmin password: "${"*".repeat(adminPassword.length)}"`);
 
 
+
+
+
+// ================================================================
+// ================================================================
+
+
+// various utility functions
+
+
+// check rate limits
+
 function rateLimit(data, connection) {
   // time-based rate limits
   if (connection.lastMsgTimes.length >= rateLimitMax) connection.lastMsgTimes.shift();
@@ -130,6 +149,9 @@ function rateLimit(data, connection) {
   }
   return 0;
 }
+
+
+// send message to all clients in the same room
 
 function sendMessage(msg, connection) {
   try {
@@ -158,6 +180,7 @@ function sendMessage(msg, connection) {
   }
 }
 
+// check maximum rooms
 function checkMaxRooms() {
   if (Object.keys(lastRoomTimes).length > maxRooms) {
     // remove oldest rooms (based on value of each) until there are only maxRooms left
@@ -171,7 +194,7 @@ function checkMaxRooms() {
   }
 }
 
-
+// handle client's inital connection
 function initConnect(data, connection) {
   try {
     if (data.username == "" || data.roomCode == "") {
@@ -199,6 +222,7 @@ function initConnect(data, connection) {
   }
 }
 
+// authenticate admin
 function adminAuth(data, connection) {
   if (data.username !== adminUsername || data.password !== adminPassword) {
     connection.send(JSON.stringify({type: "error", message: "Invalid credentials."}));
@@ -207,13 +231,13 @@ function adminAuth(data, connection) {
   return true;
 }
 
+// initialize admin connection & send room listing
 function adminInit(data, connection) {
   // authenticate
   if (!adminAuth(data, connection)) return;
   
   // get rooms listing
-  var roomListing = [];
-  for (var i in lastRoomTimes) roomListing.push({ name: i, messages: messages[i].length, lastTime: lastRoomTimes[i] });
+  var roomListing = getRoomListing();
 
   // sort rooms by lastTime, then by messages
   roomListing.sort(function(a, b) {
@@ -227,13 +251,37 @@ function adminInit(data, connection) {
   connection.send(JSON.stringify(msg));
 }
 
+function getRoomListing() {
+  var roomListing = [];
+  for (var i in lastRoomTimes) roomListing.push({ name: i, messages: messages[i].length, lastTime: lastRoomTimes[i] });
+  return roomListing;
+}
+
+// admin commands :D
 var adminCommands = {
   "delete": function(argument) {
     delete messages[argument];
     delete lastRoomTimes[argument];
+  },
+  "sendGlobal": function(argument) {
+    // send message to every existing room
+    var roomListing = getRoomListing();
+    for (var i in roomListing) {
+      var room = roomListing[i];
+      for (var j in clients) {
+        if (clients[j].roomCode == room.name) {
+          clients[j].connection.send(JSON.stringify({type: "message", message: `<p>Admin: ${argument}</p>`}));
+        }
+      }
+      if (messages[room.name] == undefined) messages[room.name] = [];
+      messages[room.name].push({username: "Admin", message: `<p>${argument}</p>`});
+      lastRoomTimes[room.name] = Date.now();
+    }
   }
 }
 
+// run admin command
+// admin command format: {type: "adminCommand", msg: {command: "delete", argument: "roomcode"}, username: "admin", password: "password"}
 function adminCommand(data, connection) {
   // authenticate
   if (!adminAuth(data, connection)) return;
@@ -246,7 +294,7 @@ function adminCommand(data, connection) {
   }
 }
 
-// Every 5 minutes, back up all messages to backup.json
+// Every backupInterval minutes, back up all messages to backup.json
 setInterval(function() {
   // back up messages
   var backupData = [
