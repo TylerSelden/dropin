@@ -1,0 +1,142 @@
+$primary:   #4077AA;
+$secondary: #D0D0D0;
+$light:     #F0F0F0;
+$dark:      #333333;
+$success:   #4CAF50;
+$danger:    #FF6F61;
+
+$theme-colors: (
+  primary:   $primary,
+  secondary: $secondary,
+  light:     $light,
+  dark:      $dark,
+  success:   $success,
+  danger:    $danger
+);
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.header, .main {
+  width: 100vw;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.main-header {
+  font-weight: 200;
+  font-size: 4em;
+  margin-top: 10vh;
+}
+.sub-header {
+  max-width: 75%;
+  margin: auto;
+}
+
+
+h4 {
+  font-size: 1.8em;
+  font-weight: 400;
+}
+
+p, label, input, .btn {
+  font-size: 1.2em;
+  color: $dark;
+}
+
+.login-inputs {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-gap: 5px;
+}
+label {
+  text-align: right;
+}
+input {
+  vertical-align: middle;
+  padding: $spacer * .25;
+}
+
+input {
+  border: 1px solid $dark;
+  outline: none;
+}
+
+.window {
+  margin-top: 10vh;
+}
+
+.window > div {
+  border-radius: 3px;
+  background-color: $secondary;
+  overflow: auto;
+  width: 50vw;
+  min-width: fit-content;
+}
+
+
+.announcements {
+  max-width: 46vw;
+}
+
+.window:has(.announcements) > div {
+  padding: 2vw;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.announcements > p {
+  margin-left: $spacer;
+  margin-right: $spacer;
+}
+
+footer p {
+  font-size: 1.1em;
+}
+
+.white-bg { background-color: $light; }
+.white-bg * { color: black; }
+.blue-bg { background-color: $primary; }
+.blue-bg * { color: $light; }
+
+.debug { background-color: $danger; border: 1px solid black; }
+
+
+
+.btn-join {
+  background-color: $primary;
+  color: $light;
+  margin-top: $spacer * 3;
+  padding: $spacer * 0.75;
+  font-size: 1.2em;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary, 10%);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px lighten($primary, 10%);
+  }
+}
+
+
+
+
+
+@media only screen and (max-width: 895px) {
+
+}
+
