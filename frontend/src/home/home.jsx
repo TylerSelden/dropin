@@ -4,25 +4,18 @@ import "./style.scss";
 
 import Header from "../global/header";
 import HomeContent from "./homecontent";
-// home
-// login
-// chat
-// footer
 
-
-class Home extends React.Component {
+const Home = () => {
 //  componentDidMount() {
 //    Startup(process.env.NODE_ENV === "development");
 //  }
 
-  render() {
-    return (
-      <div className="container h-100 main bg-light">
-        <Header />
-        <HomeContent />
-      </div>
-    );
-  }
+  return (
+    <div className="container h-100 main bg-light">
+      <Header />
+      <HomeContent />
+    </div>
+  );
 }
 
 export default Home;

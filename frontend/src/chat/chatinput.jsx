@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Message from "./message";
 
-const ChatContent = () => {
+const ChatInput = () => {
   return (
     <div className="bg-light">
       <div className="messages">
@@ -13,4 +13,4 @@ const ChatContent = () => {
   )
 }
 
-export default ChatContent;
+export default ChatInput;

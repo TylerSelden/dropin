@@ -22,12 +22,25 @@ $theme-colors: (
   overflow-x: hidden;
 }
 
-.header, .main {
+.main {
   width: 100vw;
   max-width: 100%;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+.messages {
+  padding: ($spacer * 1.5) $spacer;
+
+  & > p {
+    margin-bottom: 0;
+    margin-top: $spacer * .25;
+  }
+}
+
 /*
 h4 {
   font-size: 1.8em;
