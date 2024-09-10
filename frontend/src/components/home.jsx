@@ -24,7 +24,7 @@ class Home extends React.Component {
                 <input className="font-monospace" type="text" name="name" />
               </div>
 
-              <button className="btn-join">Join</button>
+              <button className="btn btn-primary text-light mt-5 p-2 w-50 fw-semibold">Join</button>
             </div>
           </div>
           <div className="window d-flex justify-content-center">

@@ -57,13 +57,11 @@ p, label, input, .btn {
 }
 label {
   text-align: right;
+  padding: $spacer * 0.25;
 }
 input {
   vertical-align: middle;
   padding: $spacer * .25;
-}
-
-input {
   border: 1px solid $dark;
   outline: none;
 }
@@ -109,34 +107,6 @@ footer p {
 
 
 
-.btn-join {
-  background-color: $primary;
-  color: $light;
-  margin-top: $spacer * 3;
-  padding: $spacer * 0.75;
-  font-size: 1.2em;
-  font-weight: 600;
+.btn-settings {
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 50%;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: darken($primary, 10%);
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 5px lighten($primary, 10%);
-  }
 }
-
-
-
-
-
-@media only screen and (max-width: 895px) {
-
-}
-

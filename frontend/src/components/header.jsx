@@ -12,7 +12,7 @@ class Header extends React.Component {
           <h2 className="display-6"><strong>DropIn Chat</strong></h2>
         </div>
         <div className="d-flex">
-          <button className="btn h-1"><IoMdSettings size={35} /></button>
+          <button className="btn btn-primary h-1 btn-settings"><IoMdSettings size={35} /></button>
         </div>
       </div>
     )
