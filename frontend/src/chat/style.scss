@@ -1,0 +1,49 @@
+$primary:   #4077AA;
+$secondary: #D0D0D0;
+$light:     #F0F0F0;
+$dark:      #333333;
+$success:   #4CAF50;
+$danger:    #FF6F61;
+
+$theme-colors: (
+  primary:   $primary,
+  secondary: $secondary,
+  light:     $light,
+  dark:      $dark,
+  success:   $success,
+  danger:    $danger
+);
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.header, .main {
+  width: 100vw;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+/*
+h4 {
+  font-size: 1.8em;
+  font-weight: 400;
+}
+
+p, label, input, .btn {
+  font-size: 1.2em;
+  color: $dark;
+}
+
+input {
+  vertical-align: middle;
+  padding: $spacer * .25;
+  border: 1px solid $dark;
+  outline: none;
+}
+*/
+.debug { background-color: $danger; border: 1px solid black; }

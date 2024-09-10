@@ -1,28 +1,28 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import "../style.scss";
+import "./style.scss";
 
-import Header from "./header";
-import Home from "./home";
+import Header from "../global/header";
+import HomeContent from "./homecontent";
 // home
 // login
 // chat
 // footer
 
 
-class Main extends React.Component {
+class Home extends React.Component {
 //  componentDidMount() {
 //    Startup(process.env.NODE_ENV === "development");
 //  }
 
   render() {
     return (
-      <div className="container h-100 main white-bg">
+      <div className="container h-100 main bg-light">
         <Header />
-        <Home />
+        <HomeContent />
       </div>
     );
   }
 }
 
-export default Main;
+export default Home;
