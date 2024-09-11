@@ -22,11 +22,14 @@ $theme-colors: (
   overflow-x: hidden;
 }
 
-.header, .main {
+.main {
   width: 100vw;
   max-width: 100%;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-header {
@@ -41,8 +44,7 @@ $theme-colors: (
 
 
 h4 {
-  font-size: 1.8em;
-  font-weight: 400;
+  font-size: 1.5rem;
 }
 
 p, label, input, .btn {
@@ -98,10 +100,49 @@ footer p {
   font-size: 1.1em;
 }
 
-.debug { background-color: $danger; border: 1px solid black; }
-
-
-
 .btn-settings {
   border: none;
 }
+
+
+.messages {
+  padding: ($spacer * 1.5) $spacer;
+  padding-bottom: 70px;
+  
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+
+  & > p {
+    margin-bottom: 0;
+    margin-top: $spacer * 0.25;
+  }
+}
+
+.input-bar {
+  height: 60px;
+  padding: 5px;
+  width: 100%;
+
+  & > input {
+    width: 80%;
+    max-width: 900px;
+    height: 100%;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 20px;
+    margin: 0 15px;
+  }
+
+  & > button {
+    padding: 0;
+    border: none;
+  }
+}
+
+
+
+
+.debug { background-color: $danger; border: 1px solid black; }

@@ -1,9 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.scss";
 
 import Header from "../global/header";
 import ChatContent from "./chatcontent";
+import ChatInput from "./chatinput";
 
 const Chat = () => {
 //  componentDidMount() {
@@ -14,6 +14,7 @@ const Chat = () => {
     <div className="main bg-light">
       <Header />
       <ChatContent />
+      <ChatInput />
     </div>
   );
 }

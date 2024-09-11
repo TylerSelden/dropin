@@ -3,7 +3,7 @@ $secondary: #D0D0D0;
 $light:     #F0F0F0;
 $dark:      #333333;
 $success:   #4CAF50;
-$danger:    #FF6F61;
+$danger:    #FF5F51;
 
 $theme-colors: (
   primary:   $primary,
@@ -34,6 +34,13 @@ $theme-colors: (
 
 .messages {
   padding: ($spacer * 1.5) $spacer;
+  padding-bottom: 70px;
+
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 
   & > p {
     margin-bottom: 0;
@@ -41,22 +48,24 @@ $theme-colors: (
   }
 }
 
-/*
-h4 {
-  font-size: 1.8em;
-  font-weight: 400;
-}
+.input-bar {
+  height: 60px;
+  padding: 5px;
+  width: 100%;
 
-p, label, input, .btn {
-  font-size: 1.2em;
-  color: $dark;
-}
+  & > input {
+    width: 80%;
+    max-width: 900px;
+    height: 100%;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 20px 20px;
+    margin: 0 15px;
+  }
 
-input {
-  vertical-align: middle;
-  padding: $spacer * .25;
-  border: 1px solid $dark;
-  outline: none;
+  & > button {
+    padding: 0;
+    border: none;
+  }
+
 }
-*/
-.debug { background-color: $danger; border: 1px solid black; }
