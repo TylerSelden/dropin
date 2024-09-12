@@ -8,9 +8,6 @@ import { IoMdSettings } from "react-icons/io";
 const Header = () => {
   const [showSettings, setShowSettings] = useState(false);
   
-  useEffect(() => {
-    document.body.style.overflow = showSettings ? "hidden" : "auto";
-  }, [showSettings]);
 
   const toggleSettings = () => {
     setShowSettings(!showSettings);
