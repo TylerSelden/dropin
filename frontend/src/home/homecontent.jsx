@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import Footer from "./footer";
 
-//class HomeContent extends React.Component {
 const HomeContent = () => {
   const navigate = useNavigate();
 

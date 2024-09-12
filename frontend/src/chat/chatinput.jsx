@@ -2,8 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
-import Message from "./message";
-
 import { IoChevronBackOutline } from "react-icons/io5";
 import { IoIosSend } from "react-icons/io";
 
