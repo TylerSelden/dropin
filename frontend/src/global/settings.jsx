@@ -27,7 +27,7 @@ const Settings = ({ toggleSettings }) => {
           </div>
           <h3>User Data</h3>
           <div className="settings-group">
-            <button className="btn btn-danger">Clear stored data</button>
+            <button className="btn btn-danger text-light">Clear stored data</button>
           </div>
         </div>
         <div className="settings-footer float-right">

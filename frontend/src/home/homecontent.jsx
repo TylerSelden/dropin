@@ -8,7 +8,7 @@ import Footer from "./footer";
 const HomeContent = () => {
   const navigate = useNavigate();
 
-  function goToChat() {
+  const goToChat = () => {
     if (process.env.NODE_ENV === "development") {
       navigate("chat");
     } else {
@@ -43,6 +43,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>9/12/24:</h5>
+              <p>Good news, the frontend development is finished! Now all that's left is scripting, and everything will be good to go. The estimated release date for DropIn is October 2nd.</p>
               <h5>9/10/24:</h5>
               <p>Hey everybody! DropIn is currently under some heavy development, so it's not available as of now. However, I'm dedicating more time towards its development, so stay tuned!</p>
             </div>

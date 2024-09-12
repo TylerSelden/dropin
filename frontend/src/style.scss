@@ -82,7 +82,8 @@ input {
 
 
 .announcements {
-  max-width: 46vw;
+  width: 46vw;
+  min-width: fit-content;
 }
 
 .window:has(.announcements) > div {
@@ -149,7 +150,7 @@ footer p {
   left: 0;
   width: 100vw;
   height: 100vh;
-  opacity: 25%;
+  opacity: 40%;
   z-index: 1080;
   margin: 0;
   padding: 0;
