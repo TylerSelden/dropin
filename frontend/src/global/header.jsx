@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Settings from "./settings";
+
 import { IoMdSettings } from "react-icons/io";
-import { IoCloseOutline } from "react-icons/io5";
 
 const Header = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -36,17 +37,7 @@ const Header = () => {
         </div>
       </div>
 
-      {showSettings && (
-        <div>
-          <div className="settings-bg" onClick={toggleSettings}></div>
-          <div className="settings-window">
-            <div className="settings-header d-inline-flex justify-content-between align-items-center">
-              <h3 className="m-0 p-0">Settings</h3>
-              <button className="btn btn-light" onClick={toggleSettings}><IoCloseOutline size={35} /></button>
-            </div>
-          </div>
-        </div>
-      )}
+      {showSettings && <Settings toggleSettings={toggleSettings} />}
     </div>
   )
 }

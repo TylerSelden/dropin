@@ -52,7 +52,7 @@ p, label, input, .btn {
   color: $dark;
 }
 
-.login-inputs {
+.login-inputs, .settings-group {
   display: grid;
   grid-template-columns: max-content max-content;
   grid-gap: 5px;
@@ -158,8 +158,13 @@ footer p {
 
 .settings-window {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 10vh;
+  overflow-y: scroll;
   padding: $spacer * 2;
+
+  border-radius: 3px;
 
   left: 0;
   right: 0;
@@ -181,6 +186,37 @@ footer p {
   border-bottom: 2px solid $secondary;
   padding: $spacer * 0.25;
   padding-bottom: $spacer * 0.5;
+}
+
+.settings-body {
+  padding: $spacer * 0.25;
+  padding-bottom: 75px;
+}
+
+.settings-group {
+  margin-bottom: 20px;
+  padding-left: 10px;
+  & > label {
+    text-align: left;
+  }
+}
+
+.settings-footer {
+  position: absolute;
+  height: 75px;
+  background-color: $light;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 2px solid $secondary;
+  padding: $spacer;
+
+  display: flex; 
+  justify-content: flex-end;
+
+  & > button {
+    margin-left: 15px;
+  }
 }
 
 .btn {

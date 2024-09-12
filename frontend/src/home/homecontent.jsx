@@ -28,11 +28,11 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Join a room</h4>
 
             <div className="login-inputs justify-content-center">
-              <label htmlFor="code">Room code:</label>
-              <input className="font-monospace" type="text" data-name="code" />
+              <label>Room code:</label>
+              <input className="font-monospace" type="text" />
               
-              <label htmlFor="name">Username:</label>
-              <input className="font-monospace" type="text" data-name="name" />
+              <label>Username:</label>
+              <input className="font-monospace" type="text" />
             </div>
 
             <button className="btn btn-primary text-light mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
