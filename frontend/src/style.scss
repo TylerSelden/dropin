@@ -143,6 +143,48 @@ footer p {
 }
 
 
+.settings-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 25%;
+  z-index: 1080;
+  margin: 0;
+  padding: 0;
+  background-color: $dark;
+}
 
+.settings-window {
+  position: fixed;
+  top: 10vh;
+  padding: $spacer * 2;
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 60vw;
+  min-width: fit-content;
+  max-width: 900px;
+
+  min-height: 50vh;
+  max-height: 75vh;
+  background-color: $light;
+  z-index: 2000;
+}
+
+.settings-header {
+  width: 100%;
+  border-bottom: 2px solid $secondary;
+  padding: $spacer * 0.25;
+  padding-bottom: $spacer * 0.5;
+}
+
+.btn {
+  border: none;
+}
 
 .debug { background-color: $danger; border: 1px solid black; }

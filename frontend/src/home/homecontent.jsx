@@ -29,10 +29,10 @@ const HomeContent = () => {
 
             <div className="login-inputs justify-content-center">
               <label htmlFor="code">Room code:</label>
-              <input className="font-monospace" type="text" name="code" />
+              <input className="font-monospace" type="text" data-name="code" />
               
               <label htmlFor="name">Username:</label>
-              <input className="font-monospace" type="text" name="name" />
+              <input className="font-monospace" type="text" data-name="name" />
             </div>
 
             <button className="btn btn-primary text-light mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
