@@ -22,7 +22,7 @@ const Settings = ({ toggleSettings }) => {
             <label>UI Theme:</label>
             <select className="form-select">
               <option value="classic">Classic</option>
-              <option value="bubble">Bubble</option>
+              <option value="bubble" disabled>Bubble (coming soon!)</option>
             </select>
           </div>
           <h3>User Data</h3>
