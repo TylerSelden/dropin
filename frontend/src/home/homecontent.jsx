@@ -34,7 +34,7 @@ const HomeContent = () => {
               <input className="font-monospace" type="text" />
             </div>
 
-            <button className="btn btn-primary text-light mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
+            <button className="btn btn-primary text-light-force mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
           </div>
         </div>
         <div className="window d-flex justify-content-center">
