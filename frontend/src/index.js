@@ -14,7 +14,6 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setLocalValue("theme", "dark")
     if (getLocalValue("theme")) setTheme(getLocalValue("theme"));
     setLoaded(true);
   }, []);

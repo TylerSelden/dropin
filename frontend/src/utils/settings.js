@@ -25,4 +25,6 @@ export function removeLocalValue(name) {
   var data = getData() || {};
   delete data[name];
   setData(data);
+
+  if (!name && window.confirm("Are you sure you want to clear all locally stored data?")) localStorage.removeItem("dropin");
 }
