@@ -6,7 +6,7 @@ import HomeContent from "./homecontent";
 
 const Home = () => {
   return (
-    <div className="container h-100 main bg-light">
+    <div className="container h-100 main bg-light text-dark">
       <Header />
       <HomeContent />
     </div>

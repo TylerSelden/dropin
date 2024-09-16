@@ -32,7 +32,7 @@ const Settings = ({ toggleSettings }) => {
         </div>
         <div className="settings-footer float-right">
           <button className="btn btn-secondary" onClick={toggleSettings}>Cancel</button>
-          <button className="btn btn-primary text-light" onClick={toggleSettings}>Save</button>
+          <button className="btn btn-primary text-light-force" onClick={toggleSettings}>Save</button>
         </div>
       </div>
     </div>

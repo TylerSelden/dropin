@@ -7,7 +7,7 @@ import ChatInput from "./chatinput";
 
 const Chat = () => {
   return (
-    <div className="main bg-light">
+    <div className="main bg-light text-dark">
       <Header />
       <ChatContent />
       <ChatInput />

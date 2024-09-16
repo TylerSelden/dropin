@@ -14,11 +14,11 @@ const ChatInput = () => {
 
   return (
     <div className="d-flex justify-content-center input-bar fixed-bottom text-danger">
-      <button className="btn btn-danger text-light" onClick={ goToHome }>
+      <button className="btn btn-danger text-light-force" onClick={ goToHome }>
         <IoChevronBackOutline size={50}></IoChevronBackOutline>
       </button>
       <input type="text" placeholder="Type a message" />
-      <button className="btn btn-success text-light">
+      <button className="btn btn-success text-light-force">
         <IoIosSend size={50}></IoIosSend>
       </button>
     </div>

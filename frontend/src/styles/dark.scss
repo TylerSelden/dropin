@@ -1,7 +1,7 @@
 $primary:   #4077AA;
-$secondary: #D0D0D0;
-$light:     #F0F0F0;
-$dark:      #333333;
+$secondary: #2D2D2D;
+$light:     #333333;
+$dark:      #F0F0F0;
 $success:   #4CAF50;
 $danger:    #FF6F61;
 
@@ -154,7 +154,7 @@ footer p {
   z-index: 1080;
   margin: 0;
   padding: 0;
-  background-color: $dark;
+  background-color: #000000;
 }
 
 .settings-window {
@@ -222,6 +222,10 @@ footer p {
 
 .btn {
   border: none;
+}
+
+.text-light-force {
+  color: #F0F0F0;
 }
 
 .debug { background-color: $danger; border: 1px solid black; }
