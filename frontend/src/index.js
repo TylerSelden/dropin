@@ -11,31 +11,20 @@ import Chat from "./chat/chat";
 
 export default function App() {
   const [theme, setTheme] = useState("light");
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (getLocalValue("theme")) setTheme(getLocalValue("theme"));
-    setLoaded(true);
   }, []);
-
-  useEffect(() => {
-    require(`./styles/${theme}.scss`);
-  }, [theme])
 
   return (
     <BrowserRouter>
-      {!loaded ? (
-        <div className="loading-container">
-          <div className="loading">
-            <h2>Loading...</h2>
-          </div>
-        </div>
-      ) : (
+      <>
+        <link rel="stylesheet" href={`styles/${theme}.css`} />
         <Routes>
           <Route path="/" element={ <Home /> }></Route>
           <Route path="/chat" element={ <Chat /> }></Route>
         </Routes>
-      )}
+      </>
     </BrowserRouter>
   )
 }

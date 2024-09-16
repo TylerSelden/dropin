@@ -14,7 +14,7 @@ $theme-colors: (
   danger:    $danger
 );
 
-@import "~bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 
 #root {
