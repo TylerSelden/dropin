@@ -1,0 +1,234 @@
+$primary:   #4077AA;
+$secondary: #2D2D2D;
+$light:     #333333;
+$dark:      #F0F0F0;
+$success:   #4CAF50;
+$danger:    #FF6F61;
+$theme-colors: (
+  primary:   $primary,
+  secondary: $secondary,
+  light:     $light,
+  dark:      $dark,
+  success:   $success,
+  danger:    $danger
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  width: 100vw;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  font-weight: 200;
+  font-size: 4em;
+  margin-top: 10vh;
+}
+.sub-header {
+  max-width: 75%;
+  margin: auto;
+}
+
+
+h4 {
+  font-size: 1.5rem;
+}
+
+p, label, input, .btn {
+  font-size: 1.2em;
+  color: $dark;
+}
+
+.login-inputs, .settings-group {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-gap: 5px;
+}
+label {
+  text-align: right;
+  padding: $spacer * 0.25;
+}
+input {
+  vertical-align: middle;
+  padding: $spacer * .25;
+  border: 1px solid $dark;
+  outline: none;
+}
+
+.window {
+  margin-top: 10vh;
+}
+
+.window > div {
+  border-radius: 3px;
+  background-color: $secondary;
+  overflow: auto;
+  width: 50vw;
+  min-width: fit-content;
+}
+
+
+.announcements {
+  width: 46vw;
+  min-width: fit-content;
+}
+
+.window:has(.announcements) > div {
+  padding: 2vw;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.announcements > p {
+  margin-left: $spacer;
+  margin-right: $spacer;
+}
+
+footer p {
+  font-size: 1.1em;
+}
+
+.btn-settings {
+  border: none;
+}
+
+
+.messages {
+  padding: ($spacer * 1.5) $spacer;
+  padding-bottom: 70px;
+  
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+
+  & > p {
+    margin-bottom: 0;
+    margin-top: $spacer * 0.25;
+  }
+}
+
+.input-bar {
+  height: 60px;
+  padding: 5px;
+  width: 100%;
+
+  & > input {
+    width: 80%;
+    max-width: 900px;
+    height: 100%;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 20px;
+    margin: 0 15px;
+  }
+
+  & > button {
+    padding: 0;
+    border: none;
+  }
+}
+
+
+.settings-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 40%;
+  z-index: 1080;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+}
+
+.settings-window {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 10vh;
+  overflow-y: scroll;
+  padding: $spacer * 2;
+
+  border-radius: 3px;
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 60vw;
+  min-width: fit-content;
+  max-width: 900px;
+
+  min-height: 50vh;
+  max-height: 75vh;
+  background-color: $light;
+  z-index: 2000;
+}
+
+.settings-header {
+  width: 100%;
+  border-bottom: 2px solid $secondary;
+  padding: $spacer * 0.25;
+  padding-bottom: $spacer * 0.5;
+}
+
+.settings-body {
+  padding: $spacer * 0.25;
+  padding-bottom: 75px;
+}
+
+.settings-group {
+  margin-bottom: 20px;
+  padding-left: 10px;
+  & > label {
+    text-align: left;
+  }
+}
+
+.settings-footer {
+  position: absolute;
+  height: 75px;
+  background-color: $light;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 2px solid $secondary;
+  padding: $spacer;
+
+  display: flex; 
+  justify-content: flex-end;
+
+  & > button {
+    margin-left: 15px;
+  }
+}
+
+.btn {
+  border: none;
+}
+
+.text-dark-force {
+  color: #333333;
+}
+
+.text-light-force {
+  color: #F0F0F0;
+}
+
+.debug { background-color: $danger; border: 1px solid black; }

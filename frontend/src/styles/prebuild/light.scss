@@ -4,7 +4,6 @@ $light:     #F0F0F0;
 $dark:      #333333;
 $success:   #4CAF50;
 $danger:    #FF6F61;
-
 $theme-colors: (
   primary:   $primary,
   secondary: $secondary,
@@ -14,7 +13,7 @@ $theme-colors: (
   danger:    $danger
 );
 
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 
 #root {

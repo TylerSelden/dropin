@@ -17,10 +17,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "./bin/build-sass.sh && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build-sass": "sass src/styles/ --no-source-map && mv src/styles/*.css public/styles"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
