@@ -224,11 +224,11 @@ footer p {
 }
 
 .text-dark-force {
-  color: #333333;
+  color: #333333 !important;
 }
 
 .text-light-force {
-  color: #F0F0F0;
+  color: #F0F0F0 !important;
 }
 
 .debug { background-color: $danger; border: 1px solid black; }
