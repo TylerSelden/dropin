@@ -28,10 +28,10 @@ const HomeContent = () => {
 
             <div className="login-inputs justify-content-center">
               <label>Room code:</label>
-              <input className="font-monospace" type="text" />
+              <input className="font-monospace text-dark-force" type="text" />
               
               <label>Username:</label>
-              <input className="font-monospace" type="text" />
+              <input className="font-monospace text-dark-force" type="text" />
             </div>
 
             <button className="btn btn-primary text-light-force mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
@@ -42,6 +42,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>9/16/24:</h5>
+              <p>Okay, I might've been wrong. I've been running into a problem for a few days, but it's finally resolved, so development is moving again. Also, <strong>I've decided to move the release date up to Friday, September 28th.</strong></p>
               <h5>9/12/24:</h5>
               <p>Good news, the frontend development is finished! Now all that's left is scripting, and everything will be good to go. The estimated release date for DropIn is October 2nd.</p>
               <h5>9/10/24:</h5>

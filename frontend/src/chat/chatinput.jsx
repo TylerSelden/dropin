@@ -17,7 +17,7 @@ const ChatInput = () => {
       <button className="btn btn-danger text-light-force" onClick={ goToHome }>
         <IoChevronBackOutline size={50}></IoChevronBackOutline>
       </button>
-      <input type="text" placeholder="Type a message" />
+      <input className="text-dark-force" type="text" placeholder="Type a message" />
       <button className="btn btn-success text-light-force">
         <IoIosSend size={50}></IoIosSend>
       </button>
