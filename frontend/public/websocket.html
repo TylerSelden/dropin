@@ -103,9 +103,15 @@
   <div id="input">
     <textarea id="messageInput" placeholder="Type a message..." onkeydown="handleKeyDown(event)" autofocus></textarea>
   </div>
-
   <script>
     var socket;
+    var messageHistory = [];
+    var historyIndex = -1;
+
+    // Load message history from localStorage
+    if (localStorage.getItem('messageHistory')) {
+      messageHistory = JSON.parse(localStorage.getItem('messageHistory'));
+    }
 
     function connectWebSocket() {
       socket = new WebSocket("wss://server.benti.dev:3001");
@@ -148,16 +154,39 @@
       var messageInput = document.getElementById("messageInput");
       var message = messageInput.value;
       if (message.trim() !== "") {
+        // Only add to history if different from the last message
+        if (messageHistory.length === 0 || messageHistory[messageHistory.length - 1] !== message) {
+          messageHistory.push(message);
+          localStorage.setItem('messageHistory', JSON.stringify(messageHistory)); // Save history to localStorage
+        }
+        historyIndex = messageHistory.length; // Reset index to point to latest message
         socket.send(message);
         messageInput.value = "";
-        displayMessage(`<span class='yellow'>  ${message}</span>`)
+        displayMessage(`<span class='yellow'>  ${message}</span>`);
       }
     }
 
     function handleKeyDown(event) {
+      var messageInput = document.getElementById("messageInput");
+
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
         sendMessage();
+      } else if (event.key === "ArrowUp") {
+        if (historyIndex > 0) {
+          event.preventDefault();
+          historyIndex--;
+          messageInput.value = messageHistory[historyIndex];
+        }
+      } else if (event.key === "ArrowDown") {
+        if (historyIndex < messageHistory.length - 1) {
+          event.preventDefault();
+          historyIndex++;
+          messageInput.value = messageHistory[historyIndex];
+        } else if (historyIndex === messageHistory.length - 1) {
+          event.preventDefault();
+          messageInput.value = ""; // Clear the input when navigating past the latest history item
+        }
       }
     }
 
@@ -165,5 +194,7 @@
       connectWebSocket();
     };
   </script>
-</body>
+
+
+  </body>
 </html>
