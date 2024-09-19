@@ -12,7 +12,7 @@ import Chat from "./chat/chat";
 export default function App() {
   const [theme, setTheme] = useState("light");
   const [loaded, setLoaded] = useState(false);
-
+  
   useEffect(() => {
     if (getLocalValue("theme")) setTheme(getLocalValue("theme"));
 
