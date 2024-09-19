@@ -29,11 +29,17 @@ var msg_handler = {
     if (msg.msg.trim() == "") return send(conn, "err", "Message cannot be blank.");
     if (!conn.data) return send(conn, "err", "You aren't in a room.");
 
+    var _msg = {
+      timestamp: Date.now(),
+      name: conn.data.name,
+      text: msg.msg
+    }
+
     if (!global.rooms[conn.data.code]) global.rooms[conn.data.code] = [];
-    global.rooms[conn.data.code].push(msg.msg);
+    global.rooms[conn.data.code].push(_msg);
     for (var i in global.activeClients[conn.data.code]) {
       var client = global.activeClients[conn.data.code][i];
-      send(client, "msg", msg.msg);
+      send(client, "msg", _msg);
     }
   }
 }
