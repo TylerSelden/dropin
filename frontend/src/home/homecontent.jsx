@@ -26,18 +26,14 @@ const HomeContent = () => {
   }, []);
 
   const goToChat = () => {
-    if (process.env.NODE_ENV === "development") {
-      const code = codeRef.current.value;
-      const name = nameRef.current.value;
-      if (code.trim() === "" || name.trim() === "") return alert("Inputs cannot be blank.");
+    const code = codeRef.current.value;
+    const name = nameRef.current.value;
+    if (code.trim() === "" || name.trim() === "") return alert("Inputs cannot be blank.");
 
-      setLocalValue("name", name);
-      // prevent dupes
-      if (codes[codes.length - 1] !== code) setLocalValue("codes", [...codes, code]);
-      navigate("chat", { state: { code, name }});
-    } else {
-      alert("DropIn is not ready quite yet, but hang tight!")
-    }
+    setLocalValue("name", name);
+    // prevent dupes
+    if (codes[codes.length - 1] !== code) setLocalValue("codes", [...codes, code]);
+    navigate("chat", { state: { code, name }});
   }
 
   const handleKeyDown = (evt) => {

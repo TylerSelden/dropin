@@ -1,3 +1,4 @@
+const config = require("../secrets/config.json");
 var global = require("./global.js");
 const { send } = require("./misc.js");
 
@@ -28,6 +29,7 @@ var msg_handler = {
     if (!msg.msg) return send(conn, "err", "Invalid message structure.");
     if (msg.msg.trim() == "") return send(conn, "err", "Message cannot be blank.");
     if (!conn.data) return send(conn, "err", "You aren't in a room.");
+    if (msg.msg.length > config.maxLen) return send(conn, "err", "Your message exceeds the maximum character limit.");
 
     var _msg = {
       timestamp: Date.now(),
@@ -36,7 +38,10 @@ var msg_handler = {
     }
 
     if (!global.rooms[conn.data.code]) global.rooms[conn.data.code] = [];
+
+    while (global.rooms[conn.data.code].length >= config.maxMessages) global.rooms[conn.data.code].shift();
     global.rooms[conn.data.code].push(_msg);
+
     for (var i in global.activeClients[conn.data.code]) {
       var client = global.activeClients[conn.data.code][i];
       send(client, "msg", _msg);

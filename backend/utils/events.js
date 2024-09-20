@@ -25,5 +25,12 @@ process.on("uncaughtException", (err) => {
 });
 
 setInterval(() => {
+  // prune old rooms
+  for (var i in global.rooms) {
+    var room = global.rooms[i];
+    var lastMsgTime = room[room.length - 1].timestamp;
+
+    if (Date.now() - lastMsgTime > 86400000 * config.maxRoomTime) delete global.rooms[i];
+  }
   fs.writeFileSync(config.saveFile, JSON.stringify(global.rooms));
 }, config.saveInterval * 1000);
