@@ -82,6 +82,25 @@ const HomeContent = () => {
             <button className="btn btn-primary text-light-force mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>
           </div>
         </div>
+
+        <div className="window d-flex justify-content-center">
+          <div className="p-4">
+            <h4 className="m-5 mt-0">What's new?</h4>
+
+            <div className="text-start announcements">
+              <h5>Timestamps:</h5>
+              <p>DropIn now supports timestamps, in your local time. Simply hover your cursor over a message for it to appear.</p>
+              <h5>Code Memory:</h5>
+              <p>DropIn will now remember not just your most recent room code, but all of them! All you need to do is use the up/down arrow keys in the Room Code textbox to cycle through them.</p>
+              <h5>New Themes:</h5>
+              <p>DropIn is introducing themes, such as light/dark mode, and a brand-new colorblind mode for accessibility purposes. More are on the way.</p>
+              <h5>Sleek UI:</h5>
+              <p>After completely refactoring the code, DropIn v2 has a new, sleek design.</p>
+            </div>
+          </div>
+        </div>
+
+
         <div className="window d-flex justify-content-center">
           <div className="p-4">
             <h4 className="m-5 mt-0">Announcements</h4>

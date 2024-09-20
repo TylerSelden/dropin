@@ -10,21 +10,28 @@ import Home from "./home/home";
 import Chat from "./chat/chat";
 
 export default function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(getLocalValue("theme") || "light");
   const [loaded, setLoaded] = useState(false);
-  
-  useEffect(() => {
-    if (getLocalValue("theme")) setTheme(getLocalValue("theme"));
+  const [mods, setMods] = useState(getLocalValue("mods") || []);
 
-    document.getElementById("theme-sheet").addEventListener("load", () => {
-      setLoaded(true);
-    })
+  useEffect(() => {
+    var stylesheets = document.getElementsByName("stylesheet");
+    var loadedSheets = 0;
+    for (var stylesheet of stylesheets) {
+      stylesheet.addEventListener("load", () => {
+        loadedSheets++;
+        if (loadedSheets === stylesheets.length) setLoaded(true);
+      });
+    }
   }, []);
 
   return (
     <BrowserRouter>
       <>
-        <link id="theme-sheet" rel="stylesheet" href={`styles/${theme}.css`} />
+        <link name="stylesheet" rel="stylesheet" href={`styles/${theme}.css`} />
+        {mods.map((mod, index) => (
+          <link key={index} name="stylesheet" rel="stylesheet" href={`styles/mods/${mod}.css`} />
+        ))}
         {!loaded ? (
           <div className="loading-container">
             <div className="loading">
