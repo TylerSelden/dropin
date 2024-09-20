@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+
+import { getLocalValue, setLocalValue } from "../utils/settings.js";
 
 import Footer from "./footer";
 
@@ -10,15 +12,51 @@ const HomeContent = () => {
   const codeRef = useRef(null);
   const nameRef = useRef(null);
 
+  const [codes, setCodes] = useState([]);
+  const [codeIndex, setCodeIndex] = useState(0);
+
+  useEffect(() => {
+    var _codes = getLocalValue("codes");
+    if (_codes) {
+      setCodes(_codes);
+      setCodeIndex(_codes.length - 1)
+      codeRef.current.value = _codes[_codes.length - 1];
+    }
+    if (getLocalValue("name")) nameRef.current.value = getLocalValue("name");
+  }, []);
+
   const goToChat = () => {
     if (process.env.NODE_ENV === "development") {
       const code = codeRef.current.value;
       const name = nameRef.current.value;
       if (code.trim() === "" || name.trim() === "") return alert("Inputs cannot be blank.");
 
+      setLocalValue("name", name);
+      // prevent dupes
+      if (codes[codes.length - 1] !== code) setLocalValue("codes", [...codes, code]);
       navigate("chat", { state: { code, name }});
     } else {
       alert("DropIn is not ready quite yet, but hang tight!")
+    }
+  }
+
+  const handleKeyDown = (evt) => {
+    if (evt.key === "Enter") goToChat();
+    if (evt.target !== codeRef.current) return;
+
+    if (evt.key === "ArrowUp") {
+      if (codeIndex === 0) return;
+      codeRef.current.value = codes[codeIndex - 1];
+      setCodeIndex(codeIndex - 1);
+    }
+    if (evt.key === "ArrowDown") {
+      if (codeIndex === codes.length) return;
+      if (codeIndex === codes.length - 1) {
+        codeRef.current.value = "";
+      } else {
+        codeRef.current.value = codes[codeIndex + 1];
+      }
+      setCodeIndex(codeIndex + 1);
     }
   }
 
@@ -35,10 +73,10 @@ const HomeContent = () => {
 
             <div className="login-inputs justify-content-center">
               <label>Room code:</label>
-              <input className="font-monospace text-dark-force" type="text" ref={codeRef} />
+              <input className="font-monospace text-dark-force" type="text" ref={codeRef} onKeyDown={handleKeyDown} />
               
               <label>Username:</label>
-              <input className="font-monospace text-dark-force" type="text" ref={nameRef} />
+              <input className="font-monospace text-dark-force" type="text" ref={nameRef} onKeyDown={handleKeyDown} />
             </div>
 
             <button className="btn btn-primary text-light-force mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>

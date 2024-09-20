@@ -5,6 +5,7 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
+./bin/build-sass.sh
 (
 	cd frontend
 	npm run build
