@@ -9,7 +9,7 @@ var msg_handler = {
 
     if (global.activeClients[msg.code]) {
       for (var client of global.activeClients[msg.code]) {
-        if (client.name == msg.name) return send(conn, "err", "That username is already in use in this room.");
+        if (client.data.name == msg.name) return send(conn, "err", "That username is already in use in this room.");
       }
     } else {
       global.activeClients[msg.code] = [];

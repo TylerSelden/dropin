@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,9 +7,16 @@ import Footer from "./footer";
 const HomeContent = () => {
   const navigate = useNavigate();
 
+  const codeRef = useRef(null);
+  const nameRef = useRef(null);
+
   const goToChat = () => {
     if (process.env.NODE_ENV === "development") {
-      navigate("chat");
+      const code = codeRef.current.value;
+      const name = nameRef.current.value;
+      if (code.trim() === "" || name.trim() === "") return alert("Inputs cannot be blank.");
+
+      navigate("chat", { state: { code, name }});
     } else {
       alert("DropIn is not ready quite yet, but hang tight!")
     }
@@ -28,10 +35,10 @@ const HomeContent = () => {
 
             <div className="login-inputs justify-content-center">
               <label>Room code:</label>
-              <input className="font-monospace text-dark-force" type="text" />
+              <input className="font-monospace text-dark-force" type="text" ref={codeRef} />
               
               <label>Username:</label>
-              <input className="font-monospace text-dark-force" type="text" />
+              <input className="font-monospace text-dark-force" type="text" ref={nameRef} />
             </div>
 
             <button className="btn btn-primary text-light-force mt-5 p-2 w-50 fw-semibold" onClick={goToChat}>Join</button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Header from "../global/header";
 import ChatContent from "./chatcontent";
@@ -8,6 +8,7 @@ import ChatInput from "./chatinput";
 
 const Chat = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [loaded, setLoaded] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -17,7 +18,8 @@ const Chat = () => {
     socket.send(JSON.stringify({ type, msg, code, name }));
   }
   socket.onopen = () => {
-    send("join", null, "asdf", "admin");
+    if (!location.state) return navigate("/");
+    send("join", null, location.state.code, location.state.name);
   }
   socket.onmessage = (msg) => {
     msg = JSON.parse(msg.data);
