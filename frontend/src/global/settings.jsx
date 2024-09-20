@@ -14,7 +14,7 @@ const Settings = ({ toggleSettings }) => {
     themeRef.current.value = getLocalValue("theme") || "light";
     uiRef.current.value = getLocalValue("ui") || "classic";
     
-    var mods = getLocalValue("mods");
+    var mods = getLocalValue("mods") || [];
     colorblindRef.current.value = mods.includes("colorblind") ? "enabled" : "disabled";
   })
   
