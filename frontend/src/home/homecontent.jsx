@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getLocalValue, setLocalValue } from "../utils/settings.js";
 
-import Footer from "./footer";
+import Footer from "../global/footer";
 
 const HomeContent = () => {
   const navigate = useNavigate();

@@ -8,6 +8,7 @@ import { getLocalValue, setLocalValue, removeLocalValue } from "./utils/settings
 
 import Home from "./home/home";
 import Chat from "./chat/chat";
+import Admin from "./admin/admin";
 
 export default function App() {
   const [theme, setTheme] = useState(getLocalValue("theme") || "light");
@@ -42,6 +43,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={ <Home /> }></Route>
             <Route path="/chat" element={ <Chat /> }></Route>
+            <Route path="/admin" element={ <Admin /> }></Route>
           </Routes>
         )}
       </>

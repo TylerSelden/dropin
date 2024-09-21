@@ -11860,6 +11860,33 @@ footer p {
   color: #F0F0F0 !important;
 }
 
+table {
+  table-layout: fixed;
+  max-width: 60% !important;
+  max-height: 30vh;
+  border-collapse: collapse;
+  border: 1px solid #333333;
+  border-radius: 2px;
+}
+
+th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td {
+  background-color: #D0D0D0 !important;
+  color: #333333 !important;
+  overflow: scroll;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  text-decoration: underline !important;
+}
+
 .debug {
   background-color: #FF6F61;
   border: 1px solid black;

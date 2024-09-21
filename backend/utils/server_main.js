@@ -39,6 +39,7 @@ function server_main(req) {
   });
 
   conn.on("close", () => {
+    if (conn == global.admin) global.admin = null;
     if (conn.data) remove_from_arr(global.activeClients[conn.data.code], conn);
     remove_from_arr(global.clients, conn);
   })

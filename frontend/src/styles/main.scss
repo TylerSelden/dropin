@@ -225,4 +225,34 @@ footer p {
   color: #F0F0F0 !important;
 }
 
+
+table {
+  table-layout: fixed;
+  max-width: 60% !important;
+  max-height: 30vh;
+
+  border-collapse: collapse;
+  border: 1px solid $dark;
+  border-radius: 2px;
+}
+
+th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td {
+  background-color: $secondary !important;
+  color: $dark !important;
+  overflow: scroll;
+}
+
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
 .debug { background-color: $danger; border: 1px solid black; }

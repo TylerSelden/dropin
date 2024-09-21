@@ -34,3 +34,12 @@ setInterval(() => {
   }
   fs.writeFileSync(config.saveFile, JSON.stringify(global.rooms));
 }, config.saveInterval * 1000);
+
+setInterval(() => {
+  if (!global.admin) return;
+
+  send(global.admin, "adminmsg", {
+    clients: global.clients.map(obj => obj.data),
+    rooms: Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0] }))
+ });
+}, 1000);

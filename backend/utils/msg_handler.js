@@ -2,6 +2,8 @@ const config = require("../secrets/config.json");
 var global = require("./global.js");
 const { send } = require("./misc.js");
 
+const { createHash, randomUUID } = require("crypto");
+
 var msg_handler = {
   "join": (conn, msg) => {
     if (!msg.name || !msg.code) return send(conn, "err", "Invalid message structure.");
@@ -18,7 +20,9 @@ var msg_handler = {
 
     conn.data = {
       name: msg.name,
-      code: msg.code
+      code: msg.code,
+      timestamp: Date.now(),
+      id: randomUUID()
     }
 
     global.activeClients[msg.code].push(conn);
@@ -46,6 +50,54 @@ var msg_handler = {
       var client = global.activeClients[conn.data.code][i];
       send(client, "msg", _msg);
     }
+  },
+  "adminjoin": (conn, msg) => {
+    if (!msg.pass) return send(conn, "err", "Invalid message structure.");
+    if (createHash("sha-256").update(msg.pass).digest("hex") !== config.adminHash) return send(conn, "autherr", "Invalid credentials.");
+    if (global.admin) {
+      send(conn, "info", "An admin connection is currently active; It will be terminated.");
+      send(global.admin, "newauth", "Another admin connection has been established, terminating this connection.");
+      global.admin.close();
+    }
+    conn.admin = true;
+    global.admin = conn;
+
+
+    send(conn, "adminmsg", {
+      clients: global.clients.map(obj => obj.data),
+      rooms: Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0] }))
+    });
+  },
+  "admincmd": (conn, msg) => {
+    if (!msg.pass || !msg.cmd) return send(conn, "err", "Invalid message structure.");
+    if (createHash("sha-256").update(msg.pass).digest("hex") !== config.adminHash) return send(conn, "autherr", "Invalid credentials.");
+    if (!admin_funcs[msg.cmd]) return send(conn, "err", "Unknown command.");
+
+    admin_funcs[msg.cmd](conn, msg);
+  }
+}
+
+const admin_funcs = {
+  "killuser": (conn, msg) => {
+    if (!msg.msg) return send(conn, "err", "A user ID must be provided.");
+
+    var user = global.clients.find(client => client.data && client.data.id == msg.msg);
+    if (!user) return send(conn, "err", "Provided user does not exist.");
+    user.close();
+    send(conn, "info", "User connection terminated.");
+  },
+  "killroom": (conn, msg) => {
+    if (!msg.msg) return send(conn, "err", "A room code must be provided.");
+
+    var room = global.rooms[msg.msg];
+    if (!room) return send(conn, "err", "Provided room does not exist.");
+
+    if (global.activeClients[msg.msg]) {
+      for (var user of global.activeClients[msg.msg]) user.close();
+    }
+    delete global.activeClients[msg.msg];
+    delete global.rooms[msg.msg];
+    send(conn, "info", "Room successfully deleted.");
   }
 }
 
