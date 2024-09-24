@@ -1,18 +1,28 @@
 const config = require("../secrets/config.json");
 var global = require("./global.js");
-const { send } = require("./misc.js");
+const { send, send_admin_data } = require("./misc.js");
 
 const { createHash, randomUUID } = require("crypto");
 
 var msg_handler = {
   "join": (conn, msg) => {
     if (!msg.name || !msg.code) return send(conn, "err", "Invalid message structure.");
-    if (msg.name.trim() == "" || msg.code.trim() == "") return send(conn, "err", "Inputs must not be blank.");
+    msg.name = msg.name.trim();
+    msg.code = msg.code.trim();
+    if (msg.name == "" || msg.code == "") return send(conn, "err", "Inputs must not be blank.");
     if (conn.data) return send(conn, "err", "You are already in a room.");
+
+    if (config.reserved[msg.name.toLowerCase()]) {
+      if (!msg.pass) {
+        return send(conn, "authreq", "That username is reserved.");
+      } else if (createHash("sha-256").update(msg.pass).digest("hex") !== config.reserved[msg.name.toLowerCase()]) {
+        return send(conn, "autherr", "Invalid credentials.");
+      }
+    }
 
     if (global.activeClients[msg.code]) {
       for (var client of global.activeClients[msg.code]) {
-        if (client.data.name == msg.name) return send(conn, "err", "That username is already in use in this room.");
+        if (client.data.name.toLowerCase() == msg.name.toLowerCase()) return send(conn, "err", "That username is already in use in this room.");
       }
     } else {
       global.activeClients[msg.code] = [];
@@ -62,11 +72,7 @@ var msg_handler = {
     conn.admin = true;
     global.admin = conn;
 
-
-    send(conn, "adminmsg", {
-      clients: global.clients.map(obj => obj.data),
-      rooms: Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0] }))
-    });
+    send_admin_data();
   },
   "admincmd": (conn, msg) => {
     if (!msg.pass || !msg.cmd) return send(conn, "err", "Invalid message structure.");

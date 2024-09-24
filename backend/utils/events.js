@@ -2,7 +2,7 @@ const config = require("../secrets/config.json");
 const global = require("./global.js");
 
 const fs = require("fs");
-const { send } = require("./misc.js");
+const { send, send_admin_data } = require("./misc.js");
 
 process.on("SIGINT", () => {
   console.log("\nSIGINT received, disconnecting clients gracefully...");
@@ -35,11 +35,4 @@ setInterval(() => {
   fs.writeFileSync(config.saveFile, JSON.stringify(global.rooms));
 }, config.saveInterval * 1000);
 
-setInterval(() => {
-  if (!global.admin) return;
-
-  send(global.admin, "adminmsg", {
-    clients: global.clients.map(obj => obj.data),
-    rooms: Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0] }))
- });
-}, 1000);
+setInterval(send_admin_data, 1000);

@@ -14,8 +14,8 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(new WebSocket(process.env.REACT_APP_SOCKET_URL));
   
-  const send = (type, msg, code, name) => {
-    socket.send(JSON.stringify({ type, msg, code, name }));
+  const send = (type, msg, code, name, pass) => {
+    socket.send(JSON.stringify({ type, msg, code, name, pass }));
   }
   socket.onopen = () => {
     if (!location.state) return navigate("/");
@@ -30,6 +30,12 @@ const Chat = () => {
     } else if (msg.type == "msgs") {
       setMessages(msg.msg);
       setLoaded(true);
+    } else if (msg.type == "authreq") {
+      var _pass = prompt(msg.msg);
+      send("join", null, location.state.code, location.state.name, _pass);
+    } else {
+      alert(msg.msg);
+      return window.location.reload();
     }
   }
   socket.onclose = () => {
