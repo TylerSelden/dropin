@@ -25,7 +25,7 @@ const Rooms = ({ rooms, killFunc }) => {
           {rooms.map((room, index) => (
             <tr key={index}>
               <td className="clickable" onClick={() => { goToRoom(room.code) }}>{room.code}</td>
-              <td>later</td>
+              <td>{room.msgnum}</td>
               <td>{new Date(room.lastmsg.timestamp).toLocaleString()}</td>
               <td className="clickable text-danger" onClick={() => { killFunc(room.code) }}>Kill</td>
             </tr>

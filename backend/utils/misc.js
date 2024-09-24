@@ -16,7 +16,7 @@ function send_admin_data() {
   if (!global.admin) return;
 
   const _clients = global.clients.map(obj => obj.data);
-  const _rooms = Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0], msgs: global.rooms[code].length }));
+  const _rooms = Object.keys(global.rooms).map(code => ({ code, lastmsg: global.rooms[code].slice(-1)[0], msgnum: global.rooms[code].length }));
   _rooms.sort((a, b) => { return b.lastmsg.timestamp - a.lastmsg.timestamp });
 
   send(global.admin, "adminmsg", {
