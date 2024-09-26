@@ -13,7 +13,8 @@ const Chat = () => {
   const [loaded, setLoaded] = useState(false);
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(new WebSocket(process.env.REACT_APP_SOCKET_URL));
-  
+  const [unread, setUnread] = useState(0);
+
   const send = (type, msg, code, name, pass) => {
     socket.send(JSON.stringify({ type, msg, code, name, pass }));
   }
@@ -23,14 +24,15 @@ const Chat = () => {
   }
   socket.onmessage = (msg) => {
     msg = JSON.parse(msg.data);
-    if (msg.type == "msg") {
+    if (msg.type === "msg") {
+      if (!document.hasFocus()) setUnread(unread + 1);
       setMessages([...messages, msg.msg]);
-    } else if (msg.type == "err") {
+    } else if (msg.type === "err") {
       alert(msg.msg);
-    } else if (msg.type == "msgs") {
+    } else if (msg.type === "msgs") {
       setMessages(msg.msg);
       setLoaded(true);
-    } else if (msg.type == "authreq") {
+    } else if (msg.type === "authreq") {
       var _pass = prompt(msg.msg);
       send("join", null, location.state.code, location.state.name, _pass);
     } else {
@@ -44,6 +46,17 @@ const Chat = () => {
   }
 
   useEffect(() => {
+    if (unread > 0) {
+      document.title = `DropIn Chat (${unread})`;
+    } else {
+      document.title = `DropIn Chat`;
+    }
+  }, [unread]);
+
+  useEffect(() => {
+    window.onfocus = () => {
+      setUnread(0);
+    }
     return () => {
       socket.onclose = null;
       socket.close();
