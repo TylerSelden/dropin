@@ -33,11 +33,17 @@ const Admin = () => {
         alert(msg.msg);
       } else if (msg.type == "newauth") {
         alert(msg.msg);
+        socket.onclose = null;
         navigate("/");
       } else {
         alert(msg.msg);
         return window.location.reload();
       }
+    }
+
+    _socket.onclose = () => {
+      alert("Disconnected from server.");
+      navigate("/");
     }
   }, []);
 
@@ -71,7 +77,7 @@ const Admin = () => {
       ) : (
         <div className="container h-100 main bg-light text-dark">
           <Header />
-          <AdminContent adminData={adminData} killUser={killUser} killRoom={killRoom} />
+          <AdminContent socket={socket} adminData={adminData} killUser={killUser} killRoom={killRoom} />
         </div>
     )}
     </>

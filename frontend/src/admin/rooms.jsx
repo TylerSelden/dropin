@@ -3,10 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 
-const Rooms = ({ rooms, killFunc }) => {
+const Rooms = ({ socket, rooms, killFunc }) => {
   const navigate = useNavigate();
 
   const goToRoom = (code) => {
+    socket.onclose = null;
+    socket.close();
     navigate("/chat", { state: { code: code, name: "Admin" }})
   }
 

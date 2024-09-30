@@ -8,7 +8,7 @@ import Clients from "./clients";
 import Rooms from "./rooms";
 import Footer from "../global/footer";
 
-const HomeContent = ({ adminData, killUser, killRoom }) => {
+const HomeContent = ({ socket, adminData, killUser, killRoom }) => {
   return (
     <div>
       <div className="w-100 text-center justify-content-center">
@@ -20,7 +20,7 @@ const HomeContent = ({ adminData, killUser, killRoom }) => {
         <h3>Users</h3>
         <Clients clients={adminData.clients} killFunc={killUser} />
         <h3>Rooms</h3>
-        <Rooms rooms={adminData.rooms} killFunc={killRoom} />
+        <Rooms socket={socket} rooms={adminData.rooms} killFunc={killRoom} />
       </div>
       <Footer />
     </div>
