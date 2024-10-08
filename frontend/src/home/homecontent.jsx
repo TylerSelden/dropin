@@ -102,6 +102,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>10/8/24:</h5>
+              <p>There was a brief outage earlier this morning, due to an SSL certificate expiring. This issue has been resolved, and DropIn has been restored to full functionality.</p>
               <h5>9/16/24:</h5>
               <p>Okay, I might've been wrong. I've been running into a problem for a few days, but it's finally resolved, so development is moving again. Also, <strong>I've decided to move the release date up to Friday, September 28th.</strong></p>
               <h5>9/12/24:</h5>
