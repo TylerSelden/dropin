@@ -17,8 +17,8 @@ const Rooms = ({ socket, rooms, killFunc }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Messages</th>
+            <th>Name ({rooms.length})</th>
+            <th>Messages ({rooms.reduce((acc, obj) => acc + obj.msgnum, 0)})</th>
             <th>Last</th>
             <th>Kill</th>
           </tr>
