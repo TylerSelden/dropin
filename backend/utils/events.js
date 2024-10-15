@@ -11,7 +11,7 @@ process.on("SIGINT", () => {
     conn.close();
   }
   console.log("\nClients disconnected, saving...");
-  fs.writeFileSync(config.saveFile, JSON.stringify(global.rooms));
+  fs.writeFileSync(config.saveFile, JSON.stringify({ rooms: global.rooms, stats: global.stats, saveVer: global.saveVer }));
   console.log("Saved, exiting.");
   process.exit();
 });
@@ -32,7 +32,7 @@ setInterval(() => {
 
     if (Date.now() - lastMsgTime > 86400000 * config.maxRoomTime) delete global.rooms[i];
   }
-  fs.writeFileSync(config.saveFile, JSON.stringify(global.rooms));
+  fs.writeFileSync(config.saveFile, JSON.stringify({ rooms: global.rooms, stats: global.stats, saveVer: global.saveVer }));
 }, config.saveInterval * 1000);
 
 setInterval(send_admin_data, 1000);

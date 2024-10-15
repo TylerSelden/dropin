@@ -38,6 +38,7 @@ var msg_handler = {
 
     global.activeClients[msg.code].push(conn);
 
+    global.stats.connections++;
     send(conn, "msgs", global.rooms[msg.code] || []);
   },
   "msg": (conn, msg) => {
@@ -52,11 +53,15 @@ var msg_handler = {
       text: msg.msg
     }
 
-    if (!global.rooms[conn.data.code]) global.rooms[conn.data.code] = [];
+    if (!global.rooms[conn.data.code]) {
+      global.rooms[conn.data.code] = [];
+      global.stats.rooms++;
+    }
 
     while (global.rooms[conn.data.code].length >= config.maxMessages) global.rooms[conn.data.code].shift();
     global.rooms[conn.data.code].push(_msg);
 
+    global.stats.msgs++;
     for (var i in global.activeClients[conn.data.code]) {
       var client = global.activeClients[conn.data.code][i];
       send(client, "msg", _msg);
