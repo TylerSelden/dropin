@@ -29,6 +29,8 @@ const HomeContent = () => {
     const code = codeRef.current.value;
     const name = nameRef.current.value;
     if (code.trim() === "" || name.trim() === "") return alert("Inputs cannot be blank.");
+    if (name.trim().length < 3 || name.trim().length > 20) return alert("Username must be between 3 and 20 characters long.");
+    if (!(new RegExp("^[a-zA-Z0-9!@#$%^&*()\\-_=+{}|\\\\[\\]<>?,./]{3,20}$")).test(name.trim())) return alert("Username contains invalid characters.");
 
     setLocalValue("name", name);
     // prevent dupes
@@ -102,6 +104,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>10/15/24:</h5>
+              <p>Usernames are now required to be between 3 and 20 characters long, and now contain restrictions on some special characters.</p>
               <h5>10/8/24:</h5>
               <p>There was a brief outage earlier this morning, due to an SSL certificate expiring. This issue has been resolved, and DropIn has been restored to full functionality.</p>
               <h5>9/16/24:</h5>

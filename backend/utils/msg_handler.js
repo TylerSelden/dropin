@@ -10,6 +10,7 @@ var msg_handler = {
     msg.name = msg.name.trim();
     msg.code = msg.code.trim();
     if (msg.name == "" || msg.code == "") return send(conn, "err", "Inputs must not be blank.");
+    if (!(new RegExp(config.unameRegex)).test(msg.name)) return send(conn, "err", "Invalid username.");
     if (conn.data) return send(conn, "err", "You are already in a room.");
 
     if (config.reserved[msg.name.toLowerCase()]) {
