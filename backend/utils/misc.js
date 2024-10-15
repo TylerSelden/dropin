@@ -21,7 +21,8 @@ function send_admin_data() {
 
   send(global.admin, "adminmsg", {
     clients: _clients,
-    rooms: _rooms
+    rooms: _rooms,
+    stats: global.stats
   });
 }
 
