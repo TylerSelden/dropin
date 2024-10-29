@@ -104,6 +104,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>10/29/24:</h5>
+              <p>The inactivity period for a room to be automatically deleted has been raised from 7 to 14 days.</p>
               <h5>10/15/24:</h5>
               <p>Usernames are now required to be between 3 and 20 characters long, and now contain restrictions on some special characters.</p>
               <h5>10/8/24:</h5>
