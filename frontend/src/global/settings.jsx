@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { getLocalValue, setLocalValue, removeLocalValue } from "../utils/settings.js";
-
-import { IoCloseOutline } from "react-icons/io5";
 
 const Settings = ({ toggleSettings }) => {
   const themeRef = useRef(null);
   const uiRef = useRef(null);
   const colorblindRef = useRef(null);
+  const passRef = useRef(null);
 
   useEffect(() => {
     themeRef.current.value = getLocalValue("theme") || "light";
     uiRef.current.value = getLocalValue("ui") || "classic";
+    passRef.current.value = getLocalValue("pass") || "";
     
     var mods = getLocalValue("mods") || [];
     colorblindRef.current.value = mods.includes("colorblind") ? "enabled" : "disabled";
@@ -26,6 +26,7 @@ const Settings = ({ toggleSettings }) => {
   const saveData = () => {
     setLocalValue("theme", themeRef.current.value);
     setLocalValue("ui", uiRef.current.value);
+    setLocalValue("pass", passRef.current.value);
     
     var mods = [];
     if (colorblindRef.current.value === "enabled") mods.push("colorblind");
@@ -63,6 +64,11 @@ const Settings = ({ toggleSettings }) => {
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
             </select>
+          </div>
+          <h3>Password</h3>
+          <div className="settings-group">
+            <label>User Password:</label>
+            <input className="text-dark-force" type="password" placeholder="Password" ref={passRef} />
           </div>
           <h3>User Data</h3>
           <div className="settings-group">

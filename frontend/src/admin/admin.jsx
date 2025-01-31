@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../global/header";
 import AdminContent from "./admincontent";
+import { getLocalValue } from "../utils/settings.js";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ const Admin = () => {
     setSocket(_socket);
 
     _socket.onopen = () => {
-      var _pass = prompt("Please enter the admin password:");
+      var _pass = getLocalValue("pass");
+      if (!_pass || _pass.length === 0) _pass = prompt("Please enter the admin password:");
       setPass(_pass);
     }
 

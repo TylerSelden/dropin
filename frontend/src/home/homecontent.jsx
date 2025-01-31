@@ -104,6 +104,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>1/31/25:</h5>
+              <p>A new password setting is now available! This allows you to pre-set a password for any reserved usernames you have.</p>
               <h5>10/29/24:</h5>
               <p>The inactivity period for a room to be automatically deleted has been raised from 7 to 14 days.</p>
               <h5>10/15/24:</h5>

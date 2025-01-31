@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../global/header";
 import ChatContent from "./chatcontent";
 import ChatInput from "./chatinput";
+import { getLocalValue } from "../utils/settings.js";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -33,7 +34,8 @@ const Chat = () => {
       setMessages(msg.msg);
       setLoaded(true);
     } else if (msg.type === "authreq") {
-      var _pass = prompt(msg.msg);
+      var _pass = getLocalValue("pass");
+      if (!_pass || _pass.length === 0) _pass = prompt(msg.msg);
       send("join", null, location.state.code, location.state.name, _pass);
     } else {
       alert(msg.msg);
