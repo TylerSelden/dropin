@@ -9,11 +9,11 @@ require("./utils/events.js");
 
 server.on("request", server_main);
 
-
-httpServer.listen(config.port);
+var port = (process.argv.includes("--dev")) ? config.devPort : config.port;
+httpServer.listen(port);
 
 global.started = Date.now();
 
-console.log(`Server started on port ${config.port} at ${new Date(global.started).toLocaleString()}. It will autosave every ${config.saveInterval} seconds.
+console.log(`Server started on port ${port} at ${new Date(global.started).toLocaleString()}. It will autosave every ${config.saveInterval} seconds.
 
 Error log: ${config.errFile}`);
