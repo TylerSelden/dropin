@@ -39,7 +39,15 @@ var msg_handler = {
     global.activeClients[msg.code].push(conn);
 
     global.stats.connections++;
-    send(conn, "msgs", global.rooms[msg.code] || []);
+    var msgs = global.rooms[msg.code] || [];
+    if (msg.name.toLowerCase() !== "admin" && msg.code.startsWith('!')) {
+      msgs = [{
+        timestamp: Date.now(),
+        name: "Server",
+        text: "This is a non-persistent chat room. Messages will only appear to users who are here when they're sent, and won’t be shown to users when they join."
+      }];
+    }
+    send(conn, "msgs", msgs);
   },
   "msg": (conn, msg) => {
     if (!msg.msg) return send(conn, "err", "Invalid message structure.");

@@ -86,6 +86,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">What's new?</h4>
 
             <div className="text-start announcements">
+              <h5>Non-persistent rooms:</h5>
+              <p>Users are now able to create non-persistent chat rooms, where messages only appear to users currently in the chat, and not when users join the room. Simply add a '!' to the beginning of the room code to create one.</p>
               <h5>Timestamps:</h5>
               <p>DropIn now supports timestamps, in your local time. Simply hover your cursor over a message for it to appear.</p>
               <h5>Code Memory:</h5>
@@ -104,6 +106,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>2/28/25:</h5>
+              <p>Non-persistent chat rooms are now available, allowing users to securely send private messages to one another, without worry of the message being saved and shown to other users later on. To create one, add a '!' to the beginning of the room code.</p>
               <h5>1/31/25:</h5>
               <p>A new password setting is now available! This allows you to pre-set a password for any reserved usernames you have.</p>
               <h5>10/29/24:</h5>
