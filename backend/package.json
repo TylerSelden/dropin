@@ -4,7 +4,7 @@
   "description": "Here we go...",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js --dev",
+    "test": "nodemon --ext js --exec 'node index.js --dev'",
     "start": "node index.js"
   },
   "author": "Tyler Selden",
