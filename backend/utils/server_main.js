@@ -30,10 +30,11 @@ function server_main(req) {
 
   conn.on("message", (msg) => {
     msg = msg.utf8Data;
-    
+
     try {
       handle_msg(conn, msg);
-    } catch {
+    } catch (err) {
+      global.err(err);
       send(conn, "err", "Something went wrong.");
     }
   });

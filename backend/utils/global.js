@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const config = require("../secrets/config.json");
 
 var global = {
@@ -30,6 +31,12 @@ var updateSave = [
     console.log(data);
   }
 ]
+
+const errStream = fs.createWriteStream(config.errFile, { flags: "a" });
+global.err = (err) => {
+  console.error(err);
+  errStream.write(`\n\n${new Date().toLocaleString()}: ${err.stack}`);
+}
 
 // update save versions
 if (data.saveVer) global.saveVer = data.saveVer;

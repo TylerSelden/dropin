@@ -17,11 +17,8 @@ process.on("SIGINT", () => {
 });
 
 
-const errorFileStream = fs.createWriteStream(config.errFile, { flags: "a" });
-
 process.on("uncaughtException", (err) => {
-  console.error(err);
-  errorFileStream.write(`\n\n${new Date().toLocaleString()}: ${err.stack}`);
+  global.err(err);
 });
 
 setInterval(() => {
