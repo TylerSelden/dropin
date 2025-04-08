@@ -7,6 +7,7 @@ const Settings = ({ toggleSettings }) => {
   const themeRef = useRef(null);
   const uiRef = useRef(null);
   const colorblindRef = useRef(null);
+  const blindRef = useRef(null);
   const passRef = useRef(null);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const Settings = ({ toggleSettings }) => {
     
     var mods = getLocalValue("mods") || [];
     colorblindRef.current.value = mods.includes("colorblind") ? "enabled" : "disabled";
+    blindRef.current.value = mods.includes("blind") ? "enabled" : "disabled";
   })
   
   const clearData = () => {
@@ -30,6 +32,7 @@ const Settings = ({ toggleSettings }) => {
     
     var mods = [];
     if (colorblindRef.current.value === "enabled") mods.push("colorblind");
+    if (blindRef.current.value === "enabled") mods.push("blind");
 
     setLocalValue("mods", mods);
 
@@ -61,6 +64,11 @@ const Settings = ({ toggleSettings }) => {
           <div className="settings-group">
             <label>Colorblind mode:</label>
             <select className="form-select" ref={colorblindRef}>
+              <option value="enabled">Enabled</option>
+              <option value="disabled">Disabled</option>
+            </select>
+            <label>Regular Blind mode:</label>
+            <select className="form-select" ref={blindRef}>
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
             </select>
