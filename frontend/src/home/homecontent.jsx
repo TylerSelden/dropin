@@ -106,6 +106,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+              <h5>5/16/25:</h5>
+              <p>After a <i>very</i> long outage, DropIn is finally back! The issue was very difficult to pin down, but it's one that won't happen again. Apologies for the outage, and welcome back!</p>
               <h5>2/28/25:</h5>
               <p>Non-persistent chat rooms are now available, allowing users to securely send private messages to one another, without worry of the message being saved and shown to other users later on. To create one, add a '!' to the beginning of the room code.</p>
               <h5>1/31/25:</h5>
