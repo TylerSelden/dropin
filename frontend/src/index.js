@@ -27,7 +27,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/dropin">
       <>
         <link name="stylesheet" rel="stylesheet" href={`styles/${theme}.css`} />
         {mods.map((mod, index) => (
