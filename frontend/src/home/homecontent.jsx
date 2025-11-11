@@ -106,6 +106,8 @@ const HomeContent = () => {
             <h4 className="m-5 mt-0">Announcements</h4>
 
             <div className="text-start announcements">
+	      <h5>11/11/25:</h5>
+	      <p>Migration is still ongoing, please expect intermittent outages on Saturday, November 15th.</p>
               <h5>11/5/25:</h5>
               <p>Heads up! We're currently migrating our systems towards a selfhosted schema, and while outages are not expected, they may still occur.</p>
               <h5>5/16/25:</h5>
