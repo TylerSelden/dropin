@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/dropin/static/css/main.0989b5d3.css",
-    "main.js": "/dropin/static/js/main.84cebec7.js",
+    "main.js": "/dropin/static/js/main.ec6c5dcf.js",
     "index.html": "/dropin/index.html"
   },
   "entrypoints": [
     "static/css/main.0989b5d3.css",
-    "static/js/main.84cebec7.js"
+    "static/js/main.ec6c5dcf.js"
   ]
 }
